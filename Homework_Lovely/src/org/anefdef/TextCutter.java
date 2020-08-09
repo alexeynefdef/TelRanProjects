@@ -13,6 +13,8 @@ public class TextCutter {
     public String cutTheText(String text,int limit) {
         if (text.isEmpty() || limit == 0)
             return null;
+        if (limit >= text.length())
+            return text;
         if (text.charAt(limit) == ' ')
             return text.substring(0,limit);
         //get section of text to the given limit

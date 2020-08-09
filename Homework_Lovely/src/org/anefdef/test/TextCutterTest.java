@@ -16,6 +16,21 @@ class TextCutterTest {
     TextCutter cutter = new TextCutter();
 
     @Test
+    void testCutTheText_testAndTextLengthPlus1() {
+        assertEquals(input,cutter.cutTheText(input,input.length()+1));
+    }
+
+    @Test
+    void testCutTheText_testAndTextLengthMinus1() {
+        assertEquals("У нас было два пакетика травы, семьдесят пять ампул мескалина, " +
+                "5 пакетиков диэтиламида лизергиновой кислоты или ЛСД, солонка, наполовину наполненная кокаином," +
+                " и целое море разноцветных амфетаминов, барбитуратов и транквилизаторов, а так же литр текилы, " +
+                "литр рома, ящик «Бадвайзера», пинта чистого эфира, и 12 пузырьков амилнитрита. " +
+                "Не то, чтобы всё это было категорически необходимо в поездке, " +
+                "но если уж начал собирать коллекцию, то к делу надо подходить",cutter.cutTheText(input,input.length()-1));
+    }
+
+    @Test
     void testCutTheText_emptyTextAnd0() {
         assertEquals(null,cutter.cutTheText("",0));
     }
