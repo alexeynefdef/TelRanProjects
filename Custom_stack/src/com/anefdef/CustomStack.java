@@ -1,6 +1,6 @@
 package com.anefdef;
 
-public interface CustomStack {
+ interface CustomStack {
 
     void addLast(int i);
 

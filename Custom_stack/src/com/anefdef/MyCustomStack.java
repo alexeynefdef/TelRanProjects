@@ -8,7 +8,6 @@ public class MyCustomStack implements CustomStack{
      * Custom simple Stack implementation
      */
     private int size;
-    private int lastElement;
     private Deque<Integer> source;
     private Deque<Integer> maxElement;
 
@@ -21,7 +20,6 @@ public class MyCustomStack implements CustomStack{
     @Override
     public void addLast(int i) {
         source.addLast(i);
-        lastElement = i;
         size++;
         if (maxElement.size() == 0 || i > maxElement.getLast()) {
             maxElement.addLast(i);
@@ -38,9 +36,6 @@ public class MyCustomStack implements CustomStack{
             int out = source.getLast();
             source.removeLast();
             maxElement.removeLast();
-            if (size > 1){
-                lastElement = source.getLast();
-            }
             size--;
             return out;
         }
