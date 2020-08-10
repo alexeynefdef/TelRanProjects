@@ -5,24 +5,24 @@ import java.util.Iterator;
 public class ReversedMyArrayDequeIterator<T> implements Iterator<T> {
 
     MyArrayDeque<T> toIterate;
-    int currentIndexNumber;
+    /**
+     * can be size-1 down to 0
+     */
+    int currentOrderNumber;
 
     public ReversedMyArrayDequeIterator(MyArrayDeque<T> toIterate) {
         this.toIterate = toIterate;
-        currentIndexNumber = toIterate.size;
+        currentOrderNumber = toIterate.size-1;
     }
 
     @Override
     public boolean hasNext() {
-        return currentIndexNumber > 0;
+        return currentOrderNumber >= 0;
     }
 
     @Override
     public T next() {
-        if (toIterate.size == 0)
-            throw new MyDequeEmptyException("Empty source");
-        int indexInSourceToReturn = (toIterate.firstIndex + currentIndexNumber - 1) % toIterate.capacity;
-        currentIndexNumber--;
+        int indexInSourceToReturn = (toIterate.firstIndex + currentOrderNumber--) % toIterate.capacity;
         return (T) toIterate.source[indexInSourceToReturn];
     }
 }

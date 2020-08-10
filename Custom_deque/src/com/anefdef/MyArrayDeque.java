@@ -89,7 +89,6 @@ public class MyArrayDeque<T> implements MyDeque<T>{
 
     private class DefaultIterator<T> implements Iterator<T> {
 
-
         /**
          * the number of the current element from 0 to size - 1
          */

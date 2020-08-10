@@ -189,9 +189,12 @@ class MyArrayDequeTest {
 
     @Test
     void testReversedIterator() {
-        deque = new MyArrayDeque<>(2);
         deque.addLast(3);
         deque.addFirst(8);
+        deque.addFirst(10);
+        deque.addFirst(-3);
+        deque.addLast(5);
+        deque.addFirst(-5);
 
         Iterator<Integer> it = new ReversedMyArrayDequeIterator<>(deque);
 
@@ -201,8 +204,14 @@ class MyArrayDequeTest {
             res.add(current);
         }
 
-        List<Integer> expected = Arrays.asList(3,8);
+        List<Integer> expected = Arrays.asList(5, 3, 8, 10, -3, -5);
         assertEquals(expected,res);
+    }
+
+    @Test
+    void testReversedIterator_emptySource_noIteration() {
+        Iterator<Integer> it = new ReversedMyArrayDequeIterator<>(deque);
+        assertFalse(it.hasNext());
     }
 
     @Test
@@ -222,6 +231,4 @@ class MyArrayDequeTest {
         List<Integer> expected = Arrays.asList(8,3);
         assertEquals(expected,res);
     }
-
-
 }
