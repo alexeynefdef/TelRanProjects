@@ -68,8 +68,8 @@ class Point2DTest {
 
     @Test
     void testPoint2DComparator_bLessThanA_positive() {
-        b = new Point2D(-3.5,7.4);
         a = new Point2D(4.8,15.18);
+        b = new Point2D(-3.5,7.4);
         assertEquals(1,a.compareTo(b));
         assertEquals(-1,b.compareTo(a));
         assertEquals(1,comparator.compare(a,b));
@@ -77,12 +77,27 @@ class Point2DTest {
 
     @Test
     void testPoint2DComparator_equalPoints_zero() {
-        b = new Point2D(-3.5,7.4);
         a = new Point2D(-3.5,7.4);
+        b = new Point2D(-3.5,7.4);
         assertEquals(0,a.compareTo(b));
         assertEquals(0,b.compareTo(a));
         assertEquals(0,comparator.compare(a,b));
     }
+
+    @Test
+    void testPoint2DEquals_equalPoints_true() {
+        a = new Point2D(-3.5,7.4);
+        b = new Point2D(-3.5,7.4);
+        assertEquals(a,b);
+    }
+
+    @Test
+    void testPoint2DEquals_notEqualPoints_false() {
+        a = new Point2D(-3.5,7.41);
+        b = new Point2D(-3.5,7.4);
+        assertNotEquals(a,b);
+    }
+
 
 
 
