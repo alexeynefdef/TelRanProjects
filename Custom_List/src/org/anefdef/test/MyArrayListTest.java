@@ -54,6 +54,13 @@ class MyArrayListTest {
     }
 
     @Test
+    void testRemoveIndex_oneE_size0() {
+        list.add(1);
+        assertEquals(1,list.remove(0));
+        assertEquals(0,list.size());
+    }
+
+    @Test
     void testRemoveIndex_threeDifferentElRemoveOne_size2_equalTo() {
         list.add(16);
         list.add(5);
@@ -63,4 +70,14 @@ class MyArrayListTest {
         assertFalse(list.contains(0));
     }
 
+    @Test
+    void testRemoveIndex_100DifferentElRemove100_size0() {
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+        }
+        for (int i = 0, j = 99; i < 99; i++, j--) {
+            assertEquals(i,list.remove(0));
+            assertEquals(j,list.size());
+        }
+    }
 }

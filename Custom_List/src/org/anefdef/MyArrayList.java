@@ -50,8 +50,8 @@ public class MyArrayList<T> implements MyList<T>{
                 toRemove = (T) source[index];
                 for (int i = index; i <= size; i++) {
                     source[i] = source[i+1];
-                    size--;
                 }
+                size--;
             }
         }
         return toRemove;
@@ -110,6 +110,6 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+       return null;
     }
 }
