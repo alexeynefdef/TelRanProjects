@@ -53,6 +53,14 @@ class MyArrayListTest {
         }
     }
 
-
+    @Test
+    void testRemoveIndex_threeDifferentElRemoveOne_size2_equalTo() {
+        list.add(16);
+        list.add(5);
+        list.add(0);
+        assertEquals(0,list.remove(2));
+        assertEquals(2,list.size());
+        assertFalse(list.contains(0));
+    }
 
 }

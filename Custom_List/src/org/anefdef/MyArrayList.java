@@ -43,10 +43,15 @@ public class MyArrayList<T> implements MyList<T>{
         if (index > size){
             throw new IndexOutOfBoundsException();
         } else {
-            toRemove = (T) source[index];
-            for (int i = index; i <= size; i++) {
-                source[i] = source[i+1];
-                size--;
+            if (source[index] == null) {
+                throw new NullPointerException();
+            }
+            else {
+                toRemove = (T) source[index];
+                for (int i = index; i <= size; i++) {
+                    source[i] = source[i+1];
+                    size--;
+                }
             }
         }
         return toRemove;
