@@ -13,7 +13,7 @@ class MyArrayListTest {
 
     @BeforeEach
     void init() {
-        list = new MyArrayList<Integer>();
+        list = new MyArrayList<>();
     }
 
     @Test
