@@ -52,7 +52,6 @@ class MaxEltStackTest {
         assertEquals(expected, pointStack.getMax());
     }
 
-
     @Test
     void testAddLast_emptyAndOne_1() {
         stack.addLast(1);
