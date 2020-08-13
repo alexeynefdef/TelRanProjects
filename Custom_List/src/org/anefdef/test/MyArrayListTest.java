@@ -80,4 +80,55 @@ class MyArrayListTest {
             assertEquals(j,list.size());
         }
     }
+
+    @Test
+    void testRemoveIndex_IndexOutOfBoundException() {
+        list.add(1);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(1));
+    }
+
+    @Test
+    void testGet_oneE_equalTo() {
+        list.add(88);
+        assertEquals(88,list.get(0));
+    }
+
+    @Test
+    void testGet_threeE_equalTo() {
+        list.add(88);
+        list.add(17);
+        list.add(910);
+        assertEquals(910,list.get(2));
+    }
+
+    @Test
+    void testGet_IndexOutOfBoundsException() {
+        list.add(1);
+        assertThrows(IndexOutOfBoundsException.class,() -> list.get(1));
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

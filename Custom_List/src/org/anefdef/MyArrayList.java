@@ -7,10 +7,11 @@ import java.util.Iterator;
  * The implementation of the List data structure via Array under the hood.
  * Initial Array length is 16.
  * In a case of overloading creating a new Array with doubled capacity of the old Array's length.
+ *
  * @param <T> is willing data Type
  */
 
-public class MyArrayList<T> implements MyList<T>{
+public class MyArrayList<T> implements MyList<T> {
 
     Object[] source;
     int size;
@@ -27,8 +28,8 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public void add(T element) {
-        if (size == source.length){
-            Object[] temp = new Object[source.length*2];
+        if (size == source.length) {
+            Object[] temp = new Object[source.length * 2];
             for (int i = 0; i < source.length; i++) {
                 temp[i] = source[i];
             }
@@ -40,31 +41,26 @@ public class MyArrayList<T> implements MyList<T>{
     @Override
     public T remove(int index) {
         T toRemove;
-        if (index > size){
+        if (index >= size) {
             throw new IndexOutOfBoundsException();
         } else {
-            if (source[index] == null) {
-                throw new NullPointerException();
+            toRemove = (T) source[index];
+            for (int i = index; i <= size; i++) {
+                source[i] = source[i + 1];
             }
-            else {
-                toRemove = (T) source[index];
-                for (int i = index; i <= size; i++) {
-                    source[i] = source[i+1];
-                }
-                size--;
-            }
+            size--;
         }
         return toRemove;
     }
 
     @Override
     public boolean remove(T element) {
-        if (this.contains(element)){
+        if (this.contains(element)) {
             for (int i = 0; i <= size; i++) {
-               if (source[i].equals(element)) {
-                   this.remove(i);
-                   return true;
-               }
+                if (source[i].equals(element)) {
+                    this.remove(i);
+                    return true;
+                }
             }
         }
         return false;
@@ -72,15 +68,15 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public T get(int index) {
-        if (index > size)
+        if (index >= size)
             throw new IndexOutOfBoundsException();
         return (T) source[index];
     }
 
     @Override
     public boolean contains(T element) {
-        try{
-            for (Object o:source) {
+        try {
+            for (Object o : source) {
                 if (o.equals(element))
                     return true;
             }
@@ -110,6 +106,6 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public Iterator<T> iterator() {
-       return null;
+        return null;
     }
 }
