@@ -30,9 +30,7 @@ public class MyArrayList<T> implements MyList<T> {
     public void add(T element) {
         if (size == source.length) {
             Object[] temp = new Object[source.length * 2];
-            for (int i = 0; i < source.length; i++) {
-                temp[i] = source[i];
-            }
+            System.arraycopy(source, 0, temp, 0, source.length);
             source = temp;
         }
         source[size++] = element;
@@ -45,9 +43,7 @@ public class MyArrayList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException();
         } else {
             toRemove = (T) source[index];
-            for (int i = index; i < size; i++) {
-                source[i-1] = source[i];
-            }
+            if (size - 1 - index >= 0) System.arraycopy(source, index + 1, source, index, size - 1 - index);
             size--;
         }
         return toRemove;
@@ -76,8 +72,8 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public boolean contains(T element) {
         try {
-            for (Object o : source) {
-                if (o.equals(element))
+            for (int i = 0; i < size; i++) {
+                if (source[i].equals(element))
                     return true;
             }
         } catch (NullPointerException nullPointerException) {

@@ -64,10 +64,10 @@ class MyArrayListTest {
     void testRemoveIndex_threeDifferentElRemoveOne_size2_equalTo() {
         list.add(16);
         list.add(5);
-        list.add(0);
-        assertEquals(0,list.remove(2));
+        list.add(671);
+        assertEquals(671,list.remove(2));
         assertEquals(2,list.size());
-        assertFalse(list.contains(0));
+        assertFalse(list.contains(671));
     }
 
     @Test
@@ -87,6 +87,7 @@ class MyArrayListTest {
             list.add(i);
         }
         assertEquals(15,list.remove(15));
+
     }
 
     @Test
