@@ -97,6 +97,12 @@ class MyArrayListTest {
     }
 
     @Test
+    void testGet_IndexOutOfBoundException() {
+        list.add(1);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(1));
+    }
+
+    @Test
     void testGet_oneE_equalTo() {
         list.add(88);
         assertEquals(88,list.get(0));

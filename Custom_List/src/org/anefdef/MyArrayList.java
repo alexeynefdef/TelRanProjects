@@ -1,5 +1,6 @@
 package org.anefdef;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -13,27 +14,33 @@ import java.util.Iterator;
 
 public class MyArrayList<T> implements MyList<T> {
 
+    static final int INITIAL_CAPACITY = 16;
     Object[] source;
     int size;
 
     public MyArrayList() {
-        this.source = new Object[16];
+        this.source = new Object[INITIAL_CAPACITY];
         this.size = 0;
     }
 
-    public MyArrayList(int initialCapacity) {
-        this.source = new Object[initialCapacity];
+    public MyArrayList(int preferInitialCapacity) {
+        this.source = new Object[preferInitialCapacity];
         this.size = 0;
     }
 
     @Override
     public void add(T element) {
         if (size == source.length) {
-            Object[] temp = new Object[source.length * 2];
-            System.arraycopy(source, 0, temp, 0, source.length);
-            source = temp;
+            increaseSource();
         }
         source[size++] = element;
+    }
+
+    private void increaseSource() {
+        //Object[] newSource = new Object[source.length * 2];
+        //System.arraycopy(source,0,newSource,0,source.length);
+        source = Arrays.copyOf(source,source.length*2);
+        //source = newSource;
     }
 
     @Override
@@ -64,7 +71,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T get(int index) {
-        if (index >= size)
+        if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
         return (T) source[index];
     }
@@ -89,7 +96,9 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void set(int index, T element) {
-
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+        source[index] = element;
     }
 
     @Override
