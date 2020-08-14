@@ -1,5 +1,6 @@
 package org.anefdef;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -23,11 +24,6 @@ public class MyArrayList<T> implements MyList<T> {
         this.size = 0;
     }
 
-    public MyArrayList(int preferInitialCapacity) {
-        this.source = new Object[preferInitialCapacity];
-        this.size = 0;
-    }
-
     @Override
     public void add(T element) {
         if (size == source.length) {
@@ -39,37 +35,35 @@ public class MyArrayList<T> implements MyList<T> {
     private void increaseSource() {
         //Object[] newSource = new Object[source.length * 2];
         //System.arraycopy(source,0,newSource,0,source.length);
-        source = Arrays.copyOf(source,source.length*2);
         //source = newSource;
+        source = Arrays.copyOf(source, source.length * 2);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T remove(int index) {
-        T toRemove;
-        if (index >= size) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
-            toRemove = (T) source[index];
-            if (size - 1 - index >= 0) System.arraycopy(source, index + 1, source, index, size - 1 - index);
+            T toRemove = (T) source[index];
+            System.arraycopy(source, index + 1, source, index, size - 1 - index);
             size--;
+            return toRemove;
         }
-        return toRemove;
     }
 
     @Override
     public boolean remove(T element) {
-        if (this.contains(element)) {
-            for (int i = 0; i <= size; i++) {
-                if (source[i].equals(element)) {
-                    this.remove(i);
-                    return true;
-                }
-            }
+        int index = getIndexOf(element);
+        if (index == -1) {
+            return false;
         }
-        return false;
+        remove(index);
+        return true;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
@@ -78,16 +72,24 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public boolean contains(T element) {
-        try {
-            for (int i = 0; i < size; i++) {
-                if (source[i].equals(element))
-                    return true;
-            }
-        } catch (NullPointerException nullPointerException) {
-            return false;
-        }
-        return false;
+        int index = getIndexOf(element);
+        return index != -1;
     }
+
+    /**
+     * searches index of the element in collection
+     *
+     * @param element to find in collection
+     * @return actual index or -1 if not found
+     */
+    private int getIndexOf(T element) {
+        for (int i = 0; i < size; i++) {
+            if (source[i].equals(element))
+                return i;
+        }
+        return -1;
+    }
+
 
     @Override
     public int size() {
@@ -103,15 +105,31 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void sort() {
-
+        Arrays.sort(source);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void sort(Comparator<T> comparator) {
+        Arrays.sort((T[]) source,0,source.length,comparator);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+
+        return new Iterator<>() {
+            int currentIndex;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public T next() {
+                return (T) source[currentIndex++];
+            }
+        };
     }
 }

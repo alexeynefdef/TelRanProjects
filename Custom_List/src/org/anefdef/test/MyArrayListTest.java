@@ -2,6 +2,7 @@ package org.anefdef.test;
 
 import org.anefdef.MyArrayList;
 import org.anefdef.MyList;
+import org.anefdef.Point2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -86,7 +87,8 @@ class MyArrayListTest {
         for (int i = 0; i < 16; i++) {
             list.add(i);
         }
-        assertEquals(15,list.remove(15));
+        int res = list.remove(15);
+        assertEquals(15,res);
 
     }
 
@@ -120,6 +122,24 @@ class MyArrayListTest {
     void testGet_IndexOutOfBoundsException() {
         list.add(1);
         assertThrows(IndexOutOfBoundsException.class,() -> list.get(1));
+    }
+
+    @Test
+    void testAdd_twoPoints_containsExistingPoint() {
+        MyList<Point2D> pointList = new MyArrayList<>();
+        pointList.add(new Point2D(1,1));
+        Point2D expected = new Point2D(1,1);
+        assertTrue(pointList.contains(expected));
+    }
+
+    @Test
+    void testSort_listOfInts_sortedList() {
+        MyList<Integer> expected = new MyArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
+
+
     }
 
 
