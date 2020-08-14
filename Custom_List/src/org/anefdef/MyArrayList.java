@@ -45,8 +45,8 @@ public class MyArrayList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException();
         } else {
             toRemove = (T) source[index];
-            for (int i = index; i <= size; i++) {
-                source[i] = source[i + 1];
+            for (int i = index; i < size; i++) {
+                source[i-1] = source[i];
             }
             size--;
         }

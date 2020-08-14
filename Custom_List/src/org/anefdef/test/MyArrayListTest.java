@@ -82,6 +82,14 @@ class MyArrayListTest {
     }
 
     @Test
+    void testRemove16E_RemoveIndex15() {
+        for (int i = 0; i < 16; i++) {
+            list.add(i);
+        }
+        assertEquals(15,list.remove(15));
+    }
+
+    @Test
     void testRemoveIndex_IndexOutOfBoundException() {
         list.add(1);
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(1));
