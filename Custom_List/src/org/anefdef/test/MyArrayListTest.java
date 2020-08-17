@@ -3,6 +3,7 @@ package org.anefdef.test;
 import org.anefdef.MyArrayList;
 import org.anefdef.MyList;
 import org.anefdef.Point2D;
+import org.anefdef.Point2DComparator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class MyArrayListTest {
 
     MyList<Integer> list;
+    MyList<Point2D> pointList;
 
     @BeforeEach
     void init() {
+        pointList = new MyArrayList<>();
         list = new MyArrayList<>();
     }
 
@@ -126,7 +129,6 @@ class MyArrayListTest {
 
     @Test
     void testAdd_twoPoints_containsExistingPoint() {
-        MyList<Point2D> pointList = new MyArrayList<>();
         pointList.add(new Point2D(1,1));
         Point2D expected = new Point2D(1,1);
         assertTrue(pointList.contains(expected));
@@ -139,7 +141,45 @@ class MyArrayListTest {
         expected.add(2);
         expected.add(3);
 
+        list.add(2);
+        list.add(3);
+        list.add(1);
+        list.sort();
+        for (int i = 1; i < list.size(); i++) {
+            assertEquals(list.get(i),expected.get(i));
+        }
+    }
 
+    @Test
+    void testForEach_list_getElement() {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        int count = 1;
+        for (int i:list) {
+            assertEquals(i,count++);
+        }
+    }
+
+    @Test
+    void testSortWithComparator_Point2DList_sortedList() {
+        MyList<Point2D> expected = new MyArrayList<>();
+        expected.add(new Point2D(0,1));
+        expected.add(new Point2D(1,1));
+        expected.add(new Point2D(4,4));
+        expected.add(new Point2D(3,7));
+        expected.add(new Point2D(16,3));
+
+        pointList.add(new Point2D(4,4));
+        pointList.add(new Point2D(1,1));
+        pointList.add(new Point2D(0,1));
+        pointList.add(new Point2D(16,3));
+        pointList.add(new Point2D(3,7));
+
+        pointList.sort(new Point2DComparator());
+        for (int i = 0; i < pointList.size(); i++) {
+            assertEquals(expected.get(i),pointList.get(i));
+        }
     }
 
 

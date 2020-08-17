@@ -104,13 +104,13 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void sort() {
-        Arrays.sort(source);
+        Arrays.sort(source,0,size);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void sort(Comparator<T> comparator) {
-        Arrays.sort((T[]) source,0,source.length,comparator);
+        Arrays.sort((T[]) source,0,size,comparator);
     }
 
     @Override
