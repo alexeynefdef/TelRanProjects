@@ -162,6 +162,17 @@ class MyArrayListTest {
     }
 
     @Test
+    void testIterator_list_getElement() {
+        Point2D expected = new Point2D(0,1);
+        pointList.add(new Point2D(0,1));
+        pointList.add(new Point2D(0,1));
+        pointList.add(new Point2D(0,1));
+        for (Point2D point2D:pointList) {
+            assertEquals(expected,point2D);
+        }
+    }
+
+    @Test
     void testSortWithComparator_Point2DList_sortedList() {
         MyList<Point2D> expected = new MyArrayList<>();
         expected.add(new Point2D(0,1));
