@@ -1,9 +1,5 @@
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
-
+import java.util.*;
 
 public class MyLinkedList<T> implements MyList<T> {
 
@@ -53,13 +49,11 @@ public class MyLinkedList<T> implements MyList<T> {
             Node<T> removedNode = first;
             if (index == 0) {
                 first = first.next;
-                //first.prev = null;
                 size--;
                 return removedNode.element;
             } else if (index == size - 1) {
                 removedNode = last;
                 last = last.prev;
-                //last.next = null;
                 size--;
                 return removedNode.element;
             }
@@ -76,7 +70,6 @@ public class MyLinkedList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException();
         if (element.equals(first.element)) {
             first = first.next;
-            //first.prev = null;
             size--;
             return true;
         } else if (element.equals(last.element)) {
@@ -177,25 +170,31 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyLinkedList)) return false;
-        MyLinkedList<?> that = (MyLinkedList<?>) o;
-        return size == that.size &&
-                first.equals(that.first) &&
-                last.equals(that.last);
-    }
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof MyLinkedList)) {
+            return false;
+        } else {
+            Iterator<T> e1 = this.iterator();
+            Iterator<T> e2 = ((MyLinkedList)o).iterator();
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(size, first, last);
-    }
+            while(true) {
+                if (e1.hasNext() && e2.hasNext()) {
+                    T o1 = e1.next();
+                    Object o2 = e2.next();
+                    if (o1 == null) {
+                        if (o2 == null) {
+                            continue;
+                        }
+                    } else if (o1.equals(o2)) {
+                        continue;
+                    }
 
-    @Override
-    public String toString() {
-        return "MyLinkedList{" +
-                "size=" + size +
-                ", first=" + first +
-                ", last=" + last +
-                '}';
+                    return false;
+                }
+
+                return !e1.hasNext() && !e2.hasNext();
+            }
+        }
     }
 }

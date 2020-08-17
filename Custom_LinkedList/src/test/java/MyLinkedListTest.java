@@ -31,6 +31,7 @@ class MyLinkedListTest {
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i),list.get(i));
         }
+        assertEquals(expected,list);
     }
 
     @Test
@@ -52,6 +53,7 @@ class MyLinkedListTest {
         for (int i = 0; i < pointList.size()-1; i++) {
             assertEquals(expected.get(i),pointList.get(i));
         }
+        assertEquals(expected,pointList);
     }
 
     @Test
@@ -105,6 +107,7 @@ class MyLinkedListTest {
         for (int i = 0; i < list.size(); i++) {
             assertEquals(expected.get(i),afterIteration.get(i));
         }
+        assertEquals(expected,afterIteration);
     }
 
     @Test
@@ -136,13 +139,6 @@ class MyLinkedListTest {
         var exp = new Point2D(1,1);
         pointList.add(new Point2D(1,1));
         assertEquals(exp,pointList.remove(0));
-    }
-
-    @Test
-    void testRemoveIndex_oneE_size02() {
-        list.add(1);
-        assertEquals(1, list.remove(0));
-        assertEquals(0, list.size());
     }
 
     @Test
