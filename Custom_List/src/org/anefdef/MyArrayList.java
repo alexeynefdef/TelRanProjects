@@ -3,6 +3,7 @@ package org.anefdef;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * The implementation of the List data structure via Array under the hood.
@@ -117,6 +118,7 @@ public class MyArrayList<T> implements MyList<T> {
     public Iterator<T> iterator() {
 
         return new Iterator<>() {
+
             int currentIndex;
 
             @Override
@@ -130,5 +132,21 @@ public class MyArrayList<T> implements MyList<T> {
                 return (T) source[currentIndex++];
             }
         };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyArrayList)) return false;
+        MyArrayList<?> that = (MyArrayList<?>) o;
+        return size == that.size &&
+                Arrays.equals(source, that.source);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size);
+        result = 31 * result + Arrays.hashCode(source);
+        return result;
     }
 }
