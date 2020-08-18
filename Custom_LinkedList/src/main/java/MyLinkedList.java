@@ -1,5 +1,7 @@
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
 
 public class MyLinkedList<T> implements MyList<T> {
 
@@ -45,24 +47,27 @@ public class MyLinkedList<T> implements MyList<T> {
     public T remove(int index) {
         if (size == 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
-        } else {
-            Node<T> removedNode = first;
-            if (index == 0) {
-                first = first.next;
-                size--;
-                return removedNode.element;
-            } else if (index == size - 1) {
-                removedNode = last;
-                last = last.prev;
-                size--;
-                return removedNode.element;
-            }
-            removedNode = getNode(index);
-            removedNode.prev.next = removedNode.next;
-            removedNode.next.prev = removedNode.prev;
+        }
+        Node<T> removedNode = first;
+        if (index == 0) {
+            first = first.next;
+            if (first != null)
+                first.prev = null;
+            size--;
+            return removedNode.element;
+        } else if (index == size - 1) {
+            removedNode = last;
+            last = last.prev;
+            if (last != null)
+                last.next = null;
             size--;
             return removedNode.element;
         }
+        removedNode = getNode(index);
+        removedNode.prev.next = removedNode.next;
+        removedNode.next.prev = removedNode.prev;
+        size--;
+        return removedNode.element;
     }
 
     public boolean remove(T element) {
@@ -104,14 +109,12 @@ public class MyLinkedList<T> implements MyList<T> {
      * @throws IndexOutOfBoundsException if 0 > index > size - 1
      */
     public T get(int index) {
-        if (index > size-1 || index < 0)
+        if (index > size - 1 || index < 0)
             throw new IndexOutOfBoundsException();
         return getNode(index).element;
     }
 
     public boolean contains(T element) {
-        if (size <= 0)
-            throw new IndexOutOfBoundsException();
         for (int i = 0; i < size; i++) {
             if (getNode(i).element.equals(element)) {
                 return true;
@@ -129,7 +132,7 @@ public class MyLinkedList<T> implements MyList<T> {
         Arrays.sort(toSort);
         first = last = null;
         size = 0;
-        for (T o:toSort) {
+        for (T o : toSort) {
             this.add(o);
         }
     }
@@ -140,10 +143,10 @@ public class MyLinkedList<T> implements MyList<T> {
         int i = 0;
         while (it.hasNext())
             toSort[i++] = it.next();
-        Arrays.sort(toSort,comparator);
+        Arrays.sort(toSort, comparator);
         first = last = null;
         size = 0;
-        for (T o:toSort) {
+        for (T o : toSort) {
             this.add(o);
         }
     }
@@ -176,9 +179,9 @@ public class MyLinkedList<T> implements MyList<T> {
             return false;
         } else {
             Iterator<T> e1 = this.iterator();
-            Iterator<T> e2 = ((MyLinkedList)o).iterator();
+            Iterator<T> e2 = ((MyLinkedList) o).iterator();
 
-            while(true) {
+            while (true) {
                 if (e1.hasNext() && e2.hasNext()) {
                     T o1 = e1.next();
                     Object o2 = e2.next();

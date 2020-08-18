@@ -99,9 +99,11 @@ class MyLinkedListTest {
         expected.add(89);
 
         Iterator<Integer> it = list.iterator();
-        while (it.hasNext()){
-            int num = it.next();
-            afterIteration.add(num);
+        if (it.hasNext()) {
+            do {
+                int num = it.next();
+                afterIteration.add(num);
+            } while (it.hasNext());
         }
 
         for (int i = 0; i < list.size(); i++) {
