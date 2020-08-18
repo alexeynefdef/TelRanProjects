@@ -22,11 +22,11 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     private Node<T> getNode(int index) {
-        Node<T> res = first;
+        Node<T> current = first;
         for (int i = 0; i < index; i++) {
-            res = res.next;
+            current = current.next;
         }
-        return res;
+        return current;
     }
 
     public void add(T element) {
@@ -122,20 +122,6 @@ public class MyLinkedList<T> implements MyList<T> {
         }
         return false;
     }
-
-    /*public void sort() {
-        T[] toSort = (T[]) new Object[size];
-        Iterator<T> it = iterator();
-        int i = 0;
-        while (it.hasNext())
-            toSort[i++] = it.next();
-        Arrays.sort(toSort);
-        first = last = null;
-        size = 0;
-        for (T o : toSort) {
-            this.add(o);
-        }
-    }*/
 
     public void sort(Comparator<T> comparator) {
         T[] toSort = (T[]) new Object[size];
