@@ -184,7 +184,7 @@ public class MyLinkedList<T> implements MyList<T> {
             while (true) {
                 if (e1.hasNext() && e2.hasNext()) {
                     T o1 = e1.next();
-                    Object o2 = e2.next();
+                    T o2 = e2.next();
                     if (o1 == null) {
                         if (o2 == null) {
                             continue;
