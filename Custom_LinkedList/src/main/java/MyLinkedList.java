@@ -22,6 +22,8 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     private Node<T> getNode(int index) {
+        if (index > size - 1 || index < 0)
+            throw new IndexOutOfBoundsException();
         Node<T> current = first;
         for (int i = 0; i < index; i++) {
             current = current.next;
@@ -42,6 +44,57 @@ public class MyLinkedList<T> implements MyList<T> {
 
     public int size() {
         return size;
+    }
+
+    /**
+     * Method that returns the Node corresponding to the element
+     * @param element to find the Node
+     * @return Node if found or null otherwise
+     */
+    private Node<T> findNode(T element) {
+        Node<T> current = first;
+        while (current != null) {
+            if (element.equals(current.element))
+                return current;
+            current = current.next;
+        }
+        return null;
+    }
+
+    private void removeByNode(Node<T> toRemove) {
+        Node<T> left = toRemove.prev;
+        Node<T> right = toRemove.next;
+
+        toRemove.prev = toRemove.next  = null;
+        toRemove.element = null;
+
+        if (size == 1) {
+            first = last = null;
+        } if (first == toRemove) {
+            right.prev = null;
+            first = right;
+        } else if (last == toRemove) {
+            left.next = null;
+        } else {
+            right.prev = left;
+            left.next = right;
+        }
+        size--;
+    }
+
+    public T removeByIndex(int index) {
+        Node<T> toRemove = getNode(index);
+        T result = toRemove.element;
+        removeByNode(toRemove);
+        return result;
+    }
+
+    public boolean removeByElement(T element) {
+        Node<T> toRemove = findNode(element);
+        if (toRemove == null)
+            return false;
+        removeByNode(toRemove);
+        return true;
     }
 
     public T remove(int index) {
@@ -109,18 +162,11 @@ public class MyLinkedList<T> implements MyList<T> {
      * @throws IndexOutOfBoundsException if 0 > index > size - 1
      */
     public T get(int index) {
-        if (index > size - 1 || index < 0)
-            throw new IndexOutOfBoundsException();
         return getNode(index).element;
     }
 
     public boolean contains(T element) {
-        for (int i = 0; i < size; i++) {
-            if (getNode(i).element.equals(element)) {
-                return true;
-            }
-        }
-        return false;
+        return findNode(element) != null;
     }
 
     public void sort(Comparator<T> comparator) {

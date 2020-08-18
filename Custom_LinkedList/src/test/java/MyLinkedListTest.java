@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyLinkedListTest {
 
-    MyList<Integer> list;
-    MyList<Point2D> pointList;
+    MyLinkedList<Integer> list;
+    MyLinkedList<Point2D> pointList;
 
     @BeforeEach
     void init() {
@@ -142,12 +142,6 @@ class MyLinkedListTest {
         var exp = new Point2D(1,1);
         pointList.add(new Point2D(1,1));
         assertEquals(exp,pointList.remove(0));
-    }
-
-    @Test
-    public void testRemoveEltByIndex_addOneElt_56() {
-        list.add(56);
-        assertEquals(56, list.remove(0));
     }
 
     @Test
