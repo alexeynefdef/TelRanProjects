@@ -26,7 +26,7 @@ class MyLinkedListTest {
         list.add(2);
         list.add(3);
         list.add(1);
-        list.sort();
+        list.sort(null);
 
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i),list.get(i));
@@ -36,6 +36,7 @@ class MyLinkedListTest {
 
     @Test
     void testSortWithComparator_Point2DList_sortedList() {
+
         MyList<Point2D> expected = new MyLinkedList<>();
         expected.add(new Point2D(0,1));
         expected.add(new Point2D(1,1));
@@ -76,7 +77,7 @@ class MyLinkedListTest {
         list.add(10);
         list.add(2);
 
-        list.sort();
+        list.sort(null);
         assertEquals(9, list.get(8));
     }
 

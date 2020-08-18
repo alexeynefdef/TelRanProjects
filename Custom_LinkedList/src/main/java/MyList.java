@@ -32,7 +32,5 @@ public interface MyList<T> extends Iterable<T> {
 
     boolean contains(T element);
 
-    void sort();
-
     void sort(Comparator<T> comparator);
 }

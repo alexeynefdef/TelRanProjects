@@ -123,7 +123,7 @@ public class MyLinkedList<T> implements MyList<T> {
         return false;
     }
 
-    public void sort() {
+    /*public void sort() {
         T[] toSort = (T[]) new Object[size];
         Iterator<T> it = iterator();
         int i = 0;
@@ -135,7 +135,7 @@ public class MyLinkedList<T> implements MyList<T> {
         for (T o : toSort) {
             this.add(o);
         }
-    }
+    }*/
 
     public void sort(Comparator<T> comparator) {
         T[] toSort = (T[]) new Object[size];
@@ -143,6 +143,8 @@ public class MyLinkedList<T> implements MyList<T> {
         int i = 0;
         while (it.hasNext())
             toSort[i++] = it.next();
+        if(comparator == null)
+            Arrays.sort(toSort,null);
         Arrays.sort(toSort, comparator);
         first = last = null;
         size = 0;
