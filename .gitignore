@@ -1,5 +1,5 @@
 *.iml
 *.xml
-out
+out/
 .idea
-target
+target/
