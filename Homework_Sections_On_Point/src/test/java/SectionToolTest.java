@@ -74,6 +74,17 @@ class SectionToolTest {
     }
 
     @Test
+    void testGetMaxPointCovers_3Points_3Sections_1CoverEach_one() {
+        points.add(1.45);
+        points.add(2.45);
+        points.add(3.45);
+        sections.add(new Section(1,2));
+        sections.add(new Section(2,3));
+        sections.add(new Section(3,4));
+        assertEquals(1,sectionTool.getMaxPointCovers(points,sections));
+    }
+
+    @Test
     void testGetMaxPointCovers_10Points16SectionsCovered_4() {
         for (int i = 0; i < 10; i++) {
             points.add(i + 0.45);
