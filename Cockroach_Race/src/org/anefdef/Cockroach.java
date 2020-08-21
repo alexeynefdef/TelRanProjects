@@ -10,7 +10,7 @@ public class Cockroach implements Runnable {
 
     final int stepsNumber;
     final String name;
-    List<Score> scores;
+    final List<Score> scores;
     Random random = new Random(FASTEST_STEP);
 
     public Cockroach(int stepsNumber, String name, List<Score> scores) {
@@ -30,6 +30,9 @@ public class Cockroach implements Runnable {
             }
         }
         int res = (int)System.currentTimeMillis();
-        scores.add(new Score(name,res-begin));
+
+        synchronized (scores) {
+            scores.add(new Score(name,res-begin));
+        }
     }
 }
