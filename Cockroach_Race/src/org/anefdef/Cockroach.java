@@ -8,8 +8,8 @@ public class Cockroach implements Runnable {
     private static final int FASTEST_STEP = 50;
     private static final int LONGEST_STEP = 100;
 
-    int stepsNumber;
-    String name;
+    final int stepsNumber;
+    final String name;
     List<Score> scores;
     Random random = new Random(FASTEST_STEP);
 
