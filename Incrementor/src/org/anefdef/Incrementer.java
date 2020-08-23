@@ -5,7 +5,6 @@ public class Incrementer {
     final Object mu1 = new Object();
     final Object mu2 = new Object();
 
-
     private int counter;
     private int counter2;
 
