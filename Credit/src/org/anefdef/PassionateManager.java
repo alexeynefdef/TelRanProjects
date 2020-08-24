@@ -9,6 +9,7 @@ public class PassionateManager extends CreditManager{
     int rangeTo;
     int rangeFromP;
     int rangeToP;
+    final int PROBABILITY = 20;
 
     public PassionateManager(String name, List<Score> scores,
                              int rangeFrom,
@@ -32,11 +33,12 @@ public class PassionateManager extends CreditManager{
         for (int i = 0; i < creditsNumber; i++) {
             int currentCreditDuration;
 
-            if (creditsWithPassion == 0 && random.nextInt(100) < 20) {
+            if (creditsWithPassion == 0 && random.nextInt(100) < PROBABILITY) {
                 creditsWithPassion = 3;
             }
             if (creditsWithPassion > 0) {
                 currentCreditDuration = random.nextInt((rangeToP - rangeFromP) + rangeFromP);
+                creditsWithPassion --;
             } else {
                 currentCreditDuration = random.nextInt((rangeTo - rangeFrom) + rangeFrom);
             }
