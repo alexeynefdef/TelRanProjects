@@ -12,8 +12,11 @@ public class OneElementBlockingQueue {
             while (element == null) {
                 readerMutex.wait();
             }
+        }
+        synchronized (writerMutex) {
             String res = element;
             element = null;
+            writerMutex.notify();
             return res;
         }
     }

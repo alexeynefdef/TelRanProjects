@@ -15,12 +15,16 @@ public class Main {
         con1.start();
         con2.start();
         con3.start();
-        //con1.setDaemon(true);
-        //con2.setDaemon(true);
-        //con3.setDaemon(true);
-        sup.join();
-        con1.join();
-        con2.join();
-        con3.join();
+        try {
+            con1.setDaemon(true);
+            con2.setDaemon(true);
+            con3.setDaemon(true);
+        } catch (IllegalThreadStateException e) {
+            sup.join();
+            con1.join();
+            con2.join();
+            con3.join();
+        }
+
     }
 }
