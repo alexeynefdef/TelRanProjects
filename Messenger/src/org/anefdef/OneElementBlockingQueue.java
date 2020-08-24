@@ -8,6 +8,7 @@ public class OneElementBlockingQueue {
     volatile String element = null;
 
     public String removeLast() throws InterruptedException {
+
         synchronized (readerMutex) {
             while (element == null) {
                 readerMutex.wait();
@@ -22,6 +23,7 @@ public class OneElementBlockingQueue {
     }
 
     public void addFirst(String line) throws InterruptedException {
+
         synchronized (writerMutex) {
             while (element != null) {
                 writerMutex.wait();

@@ -14,12 +14,17 @@ public class StringSupplier extends Thread {
 
     @Override
     public void run() {
-        while(true) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = null;
+        try {
+            line = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(line != null && !line.equals("exit")) {
             try {
-                String line = br.readLine();
                 queue.addFirst(line);
-            } catch (IOException | InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
