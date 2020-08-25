@@ -1,7 +1,5 @@
 package org.anefdef;
 
-import java.io.IOException;
-
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -23,8 +21,5 @@ public class Main {
         con3.start();
 
         sup.join();
-        con1.join();
-        con2.join();
-        con3.join();
     }
 }
