@@ -24,7 +24,6 @@ public class StringSupplier extends Thread {
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
-        this.interrupt();
     }
 }
 
