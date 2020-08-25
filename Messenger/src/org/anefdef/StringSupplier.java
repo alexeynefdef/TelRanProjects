@@ -15,18 +15,16 @@ public class StringSupplier extends Thread {
     @Override
     public void run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = null;
-        try {
-            line = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        while(line != null && !line.equals("exit")) {
+        String line;
+
+        while((!line.equals("exit"))) {
             try {
+                line = br.readLine();
                 queue.addFirst(line);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
+            this.interrupt();
         }
     }
 }
