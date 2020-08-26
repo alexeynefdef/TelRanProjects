@@ -1,4 +1,5 @@
 LINE1
 line2
 3enil
-line4#reverce!Invalid line (no such command)
+line4#reverce!: Invalid line (no such command)
+line5lower_case: Invalid line (No such delimiter #)

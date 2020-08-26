@@ -35,10 +35,12 @@ public class LineConsumer extends Thread {
                     String res = operation.operate(text);
                     fileWriter.write(res);
                     fileWriter.newLine();
-                } catch (PatternSyntaxException e) {
+                } catch (PatternSyntaxException | ArrayIndexOutOfBoundsException e) {
                     fileWriter.write(line + ": Invalid line (No such delimiter #)");
+                    fileWriter.newLine();
                 } catch (NullPointerException e) {
-                    fileWriter.write(line + "Invalid line (no such command)");
+                    fileWriter.write(line + ": Invalid line (no such command)");
+                    fileWriter.newLine();
                 }
             }
             fileWriter.close();
