@@ -1,0 +1,4 @@
+line1#upper_case
+line2#lower_case
+line3#reverse
+line4#reverce!

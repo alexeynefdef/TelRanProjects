@@ -1,0 +1,4 @@
+LINE1
+line2
+3enil
+line4#reverce!Invalid line (no such command)
