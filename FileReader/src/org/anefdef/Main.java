@@ -27,7 +27,7 @@ public class Main {
         operationStorage.init(operationPath);
 
         BufferedReader fileReader = new BufferedReader(new FileReader(DEFAULT_INPUT_FILE));
-        PrintWriter fileWriter = new PrintWriter(new FileOutputStream(DEFAULT_OUTPUT_FILE));
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(DEFAULT_OUTPUT_FILE));
 
         BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 

@@ -2,18 +2,19 @@ package org.anefdef.consumer;
 
 import org.anefdef.consumer.operation.StringOperation;
 
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class LineConsumer extends Thread {
 
     BlockingQueue<String> queue;
     OperationStorage storage;
-    PrintWriter fileWriter;
+    BufferedWriter fileWriter;
 
     public LineConsumer(BlockingQueue<String> queue,
                         OperationStorage storage,
-                        PrintWriter fileWriter) {
+                        BufferedWriter fileWriter) {
         this.queue = queue;
         this.storage = storage;
         this.fileWriter = fileWriter;
@@ -33,19 +34,17 @@ public class LineConsumer extends Thread {
                     String operationName = splitLine[1];
                     StringOperation operation = storage.getByName(operationName);
                     String res = operation.operate(text);
-                    fileWriter.println(res);
+                    fileWriter.write(res);
                     fileWriter.flush();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    fileWriter.println(line + ": Invalid line (No such delimiter #)");
-                    fileWriter.println();
+                    fileWriter.write(line + ": Invalid line (No such delimiter #)");
                     fileWriter.flush();
-                } catch (NullPointerException e) {
-                    fileWriter.println(line + ": Invalid line (no such command)");
-                    fileWriter.println();
+                } catch (NullPointerException | IOException e) {
+                    fileWriter.write(line + ": Invalid line (no such command)");
                     fileWriter.flush();
                 }
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
