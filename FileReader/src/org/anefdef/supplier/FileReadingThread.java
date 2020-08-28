@@ -1,23 +1,24 @@
 package org.anefdef.supplier;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class FileReadingThread extends Thread {
 
     final BlockingQueue<String> queue;
+    BufferedReader br;
 
-    public FileReadingThread(BlockingQueue<String> queue) {
+    public FileReadingThread(BlockingQueue<String> queue, BufferedReader br) {
         this.queue = queue;
+        this.br = br;
     }
 
     @Override
     public synchronized void run() {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader("src/org/anefdef/resources/input.txt"))){
+        try {
             String line;
-            while ((line = fileReader.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 queue.add(line);
             }
         } catch (IOException e) {

@@ -2,6 +2,8 @@ package org.anefdef.consumer.operation;
 
 public class UpperCaseOperation implements StringOperation{
 
+    private final String NAME = "upper_case";
+
     @Override
     public String operate(String line) {
         return line.toUpperCase();
@@ -9,6 +11,6 @@ public class UpperCaseOperation implements StringOperation{
 
     @Override
     public String getOperationName() {
-        return "upper_case";
+        return NAME;
     }
 }

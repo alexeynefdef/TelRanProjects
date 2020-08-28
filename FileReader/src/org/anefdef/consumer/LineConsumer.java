@@ -2,28 +2,31 @@ package org.anefdef.consumer;
 
 import org.anefdef.consumer.operation.StringOperation;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.regex.PatternSyntaxException;
 
 public class LineConsumer extends Thread {
 
     BlockingQueue<String> queue;
     Map<String, StringOperation> operationByName;
+    BufferedWriter br;
 
-    public LineConsumer(BlockingQueue<String> queue, Map<String,StringOperation> operationByName) {
+    public LineConsumer(BlockingQueue<String> queue,
+                        Map<String,StringOperation> operationByName,
+                        BufferedWriter br) {
         this.queue = queue;
         this.operationByName = operationByName;
+        this.br = br;
     }
 
     @Override
     public void run() {
         try {
             String line;
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter("src/org/anefdef/resources/output.txt"));
             while (!queue.isEmpty()) {
                 line = queue.take();
                 queue.remove(line);
@@ -33,17 +36,16 @@ public class LineConsumer extends Thread {
                     String operationName = splitLine[1];
                     StringOperation operation = operationByName.get(operationName);
                     String res = operation.operate(text);
-                    fileWriter.write(res);
-                    fileWriter.newLine();
-                } catch (PatternSyntaxException | ArrayIndexOutOfBoundsException e) {
-                    fileWriter.write(line + ": Invalid line (No such delimiter #)");
-                    fileWriter.newLine();
+                    br.write(res);
+                    br.newLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    br.write(line + ": Invalid line (No such delimiter #)");
+                    br.newLine();
                 } catch (NullPointerException e) {
-                    fileWriter.write(line + ": Invalid line (no such command)");
-                    fileWriter.newLine();
+                    br.write(line + ": Invalid line (no such command)");
+                    br.newLine();
                 }
             }
-            fileWriter.close();
             System.out.println("Operation finished successfully");
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
