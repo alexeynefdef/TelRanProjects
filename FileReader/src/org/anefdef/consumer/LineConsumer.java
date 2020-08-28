@@ -24,9 +24,9 @@ public class LineConsumer extends Thread {
     public void run() {
         try {
             String line;
-            // change while
-            while (!queue.isEmpty()) {
+            while (true) {
                 line = queue.take();
+                //if (line.equals("End of file")) this.interrupt();
                 queue.remove(line);
                 try {
                     String[] splitLine = line.split("#");
@@ -35,12 +35,15 @@ public class LineConsumer extends Thread {
                     StringOperation operation = storage.getByName(operationName);
                     String res = operation.operate(text);
                     fileWriter.write(res);
+                    fileWriter.newLine();
                     fileWriter.flush();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     fileWriter.write(line + ": Invalid line (No such delimiter #)");
+                    fileWriter.newLine();
                     fileWriter.flush();
-                } catch (NullPointerException | IOException e) {
+                } catch (NullPointerException e) {
                     fileWriter.write(line + ": Invalid line (no such command)");
+                    fileWriter.newLine();
                     fileWriter.flush();
                 }
             }

@@ -21,6 +21,7 @@ public class FileReadingThread extends Thread {
             while ((line = br.readLine()) != null) {
                 queue.add(line);
             }
+            queue.add("End of file");
         } catch (IOException e) {
             e.printStackTrace();
         }
