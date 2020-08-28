@@ -2,31 +2,28 @@ package org.anefdef.consumer;
 
 import org.anefdef.consumer.operation.StringOperation;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Map;
+import java.io.PrintWriter;
 import java.util.concurrent.BlockingQueue;
 
 public class LineConsumer extends Thread {
 
     BlockingQueue<String> queue;
-    Map<String, StringOperation> operationByName;
-    BufferedWriter br;
+    OperationStorage storage;
+    PrintWriter fileWriter;
 
     public LineConsumer(BlockingQueue<String> queue,
-                        Map<String,StringOperation> operationByName,
-                        BufferedWriter br) {
+                        OperationStorage storage,
+                        PrintWriter fileWriter) {
         this.queue = queue;
-        this.operationByName = operationByName;
-        this.br = br;
+        this.storage = storage;
+        this.fileWriter = fileWriter;
     }
 
     @Override
     public void run() {
         try {
             String line;
+            // change while
             while (!queue.isEmpty()) {
                 line = queue.take();
                 queue.remove(line);
@@ -34,20 +31,21 @@ public class LineConsumer extends Thread {
                     String[] splitLine = line.split("#");
                     String text = splitLine[0];
                     String operationName = splitLine[1];
-                    StringOperation operation = operationByName.get(operationName);
+                    StringOperation operation = storage.getByName(operationName);
                     String res = operation.operate(text);
-                    br.write(res);
-                    br.newLine();
+                    fileWriter.println(res);
+                    fileWriter.flush();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    br.write(line + ": Invalid line (No such delimiter #)");
-                    br.newLine();
+                    fileWriter.println(line + ": Invalid line (No such delimiter #)");
+                    fileWriter.println();
+                    fileWriter.flush();
                 } catch (NullPointerException e) {
-                    br.write(line + ": Invalid line (no such command)");
-                    br.newLine();
+                    fileWriter.println(line + ": Invalid line (no such command)");
+                    fileWriter.println();
+                    fileWriter.flush();
                 }
             }
-            System.out.println("Operation finished successfully");
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

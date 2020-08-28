@@ -2,7 +2,7 @@ package org.anefdef.consumer.operation;
 
 public class UpperCaseOperation implements StringOperation{
 
-    private final String NAME = "upper_case";
+    private static final String NAME = "upper_case";
 
     @Override
     public String operate(String line) {

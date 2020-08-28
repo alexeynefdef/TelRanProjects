@@ -2,12 +2,11 @@ package org.anefdef.consumer.operation;
 
 public class ReverseOperation implements StringOperation{
 
-    private final String NAME = "reverse";
+    private static final String NAME = "reverse";
 
     @Override
     public String operate(String line) {
-        StringBuilder sb = new StringBuilder(line);
-        return sb.reverse().toString();
+        return new StringBuilder(line).reverse().toString();
     }
 
     @Override

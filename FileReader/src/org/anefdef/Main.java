@@ -1,48 +1,47 @@
 package org.anefdef;
 
 import org.anefdef.consumer.LineConsumer;
-import org.anefdef.consumer.operation.LowerCaseOperation;
-import org.anefdef.consumer.operation.ReverseOperation;
-import org.anefdef.consumer.operation.StringOperation;
-import org.anefdef.consumer.operation.UpperCaseOperation;
+import org.anefdef.consumer.OperationStorage;
 import org.anefdef.supplier.FileReadingThread;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    private static final String OPERATION_PROPS_PATH = "src/org/anefdef/config/operations.props";
+    private static final String DEFAULT_INPUT_FILE = "src/org/anefdef/resources/input.txt";
+    private static final String DEFAULT_OUTPUT_FILE = "src/org/anefdef/resources/output.txt";
 
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        Map<String, StringOperation> operationByName = new HashMap<>();
-        operationByName.put("upper_case",new UpperCaseOperation());
-        operationByName.put("lower_case",new LowerCaseOperation());
-        operationByName.put("reverse",new ReverseOperation());
+        OperationProperties properties = new OperationProperties(OPERATION_PROPS_PATH);
+        properties.load();
 
-        BlockingQueue<String> queue = new ArrayBlockingQueue<>(100);
+        List<String> operationPath = properties.getOperationPath();
 
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter("src/org/anefdef/resources/output.txt"));
-        BufferedReader fileReader = new BufferedReader(new FileReader("src/org/anefdef/resources/input.txt"));
+        OperationStorage operationStorage = new OperationStorage();
+        operationStorage.init(operationPath);
 
-        Thread reader1 = new FileReadingThread(queue,fileReader);
-        Thread reader2 = new FileReadingThread(queue,fileReader);
-        Thread reader3 = new FileReadingThread(queue,fileReader);
+        BufferedReader fileReader = new BufferedReader(new FileReader(DEFAULT_INPUT_FILE));
+        PrintWriter fileWriter = new PrintWriter(new FileOutputStream(DEFAULT_OUTPUT_FILE));
 
-        Thread writer1 = new LineConsumer(queue,operationByName,fileWriter);
-        Thread writer2 = new LineConsumer(queue,operationByName,fileWriter);
-        Thread writer3 = new LineConsumer(queue,operationByName,fileWriter);
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
-        reader1.start();
-        reader2.start();
-        reader3.start();
+        LineConsumer[] consumers = new LineConsumer[3];
+        for (int i = 0; i < consumers.length; i++) {
+            consumers[i] = new LineConsumer(queue,operationStorage,fileWriter);
+            consumers[i].start();
+        }
 
-        writer1.start();
-        writer2.start();
-        writer3.start();
+        FileReadingThread[] suppliers = new FileReadingThread[3];
+        for (int i = 0; i < suppliers.length; i++) {
+            suppliers[i] = new FileReadingThread(queue,fileReader);
+            suppliers[i].start();
+        }
 
     }
 }

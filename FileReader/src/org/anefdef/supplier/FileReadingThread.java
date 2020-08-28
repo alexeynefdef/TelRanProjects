@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class FileReadingThread extends Thread {
 
-    final BlockingQueue<String> queue;
+    BlockingQueue<String> queue;
     BufferedReader br;
 
     public FileReadingThread(BlockingQueue<String> queue, BufferedReader br) {
@@ -16,8 +16,8 @@ public class FileReadingThread extends Thread {
 
     @Override
     public synchronized void run() {
+        String line;
         try {
-            String line;
             while ((line = br.readLine()) != null) {
                 queue.add(line);
             }
