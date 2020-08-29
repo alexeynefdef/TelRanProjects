@@ -1,3 +1,5 @@
+LINE1
+line2
 3enil
-End of file: Invalid line (No such delimiter #)
+line4#reverce!: Invalid line (no such command)
 line5lower_case: Invalid line (No such delimiter #)

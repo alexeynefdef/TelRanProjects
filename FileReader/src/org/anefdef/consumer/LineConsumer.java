@@ -24,10 +24,13 @@ public class LineConsumer extends Thread {
     public void run() {
         try {
             String line;
-            while (!(line = queue.take()).equals("End of file")) {
+            while (true) {
                 line = queue.take();
                 queue.remove(line);
-                //if (line.equals("End of file")) queue.wait();
+                if (line.equals("End of file")) {
+                    this.interrupt();
+                    return;
+                }
                 try {
                     String[] splitLine = line.split("#");
                     String text = splitLine[0];
