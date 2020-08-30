@@ -16,7 +16,7 @@ public class Main {
     private static final String DEFAULT_INPUT_FILE = "src/org/anefdef/resources/input.txt";
     private static final String DEFAULT_OUTPUT_FILE = "src/org/anefdef/resources/output.txt";
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
 
         OperationProperties properties = new OperationProperties(OPERATION_PROPS_PATH);
         properties.load();
@@ -42,6 +42,5 @@ public class Main {
             suppliers[i] = new FileReadingThread(queue,fileReader);
             suppliers[i].start();
         }
-
     }
 }

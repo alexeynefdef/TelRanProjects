@@ -21,16 +21,12 @@ public class LineConsumer extends Thread {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         try {
             String line;
             while (true) {
                 line = queue.take();
-                queue.remove(line);
-                if (line.equals("End of file")) {
-                    this.interrupt();
-                    return;
-                }
+                if (line.equals("End of file")) return;
                 try {
                     String[] splitLine = line.split("#");
                     String text = splitLine[0];
@@ -50,7 +46,7 @@ public class LineConsumer extends Thread {
                     fileWriter.flush();
                 }
             }
-        } catch (InterruptedException | IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
