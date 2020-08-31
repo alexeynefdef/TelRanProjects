@@ -1,4 +1,4 @@
-package org.anefdef.consumer;
+package org.anefdef.test;
 
 import org.anefdef.consumer.operation.LowerCaseOperation;
 import org.anefdef.consumer.operation.StringOperation;
