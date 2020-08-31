@@ -42,5 +42,24 @@ public class Main {
             suppliers[i] = new FileReadingThread(queue,fileReader);
             suppliers[i].start();
         }
+
+        join(suppliers);
+        endAllConsumers(consumers,queue);
+
+        join(consumers);
+        fileReader.close();
+        fileWriter.close();
+    }
+
+    private static void endAllConsumers(Thread[] consumers,BlockingQueue<String> queue) {
+        for (int i = 0; i < consumers.length; i++) {
+            queue.add(LineConsumer.STOP_COMMAND);
+        }
+    }
+
+    private static void join(Thread[] threads) throws InterruptedException {
+        for (Thread thread:threads) {
+            thread.join();
+        }
     }
 }

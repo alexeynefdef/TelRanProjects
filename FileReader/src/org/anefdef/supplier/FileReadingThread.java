@@ -15,13 +15,12 @@ public class FileReadingThread extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         String line;
         try {
             while ((line = br.readLine()) != null) {
                 queue.add(line);
             }
-            queue.add("End of file");
         } catch (IOException e) {
             e.printStackTrace();
         }

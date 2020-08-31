@@ -8,6 +8,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class LineConsumer extends Thread {
 
+    public static final String STOP_COMMAND = "End of file";
     BlockingQueue<String> queue;
     OperationStorage storage;
     BufferedWriter fileWriter;
@@ -21,12 +22,12 @@ public class LineConsumer extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         try {
-            String line;
             while (true) {
-                line = queue.take();
-                if (line.equals("End of file")) return;
+                String line = queue.take();
+                if (line.equals(STOP_COMMAND))
+                    return;
                 try {
                     String[] splitLine = line.split("#");
                     String text = splitLine[0];
@@ -35,15 +36,12 @@ public class LineConsumer extends Thread {
                     String res = operation.operate(text);
                     fileWriter.write(res);
                     fileWriter.newLine();
-                    fileWriter.flush();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     fileWriter.write(line + ": Invalid line (No such delimiter #)");
                     fileWriter.newLine();
-                    fileWriter.flush();
                 } catch (NullPointerException e) {
                     fileWriter.write(line + ": Invalid line (no such command)");
                     fileWriter.newLine();
-                    fileWriter.flush();
                 }
             }
         } catch (IOException | InterruptedException e) {
