@@ -1,0 +1,1 @@
+operations=org.anefdef.consumer.operation.LowerCaseOperation,org.anefdef.consumer.operation.UpperCaseOperation,org.anefdef.consumer.operation.ReverseOperation
