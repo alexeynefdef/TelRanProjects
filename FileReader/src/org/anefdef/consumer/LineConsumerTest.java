@@ -3,13 +3,10 @@ package org.anefdef.consumer;
 import org.anefdef.consumer.operation.StringOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.BufferedWriter;
 import java.util.concurrent.BlockingQueue;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class LineConsumerTest {
 
@@ -18,7 +15,6 @@ class LineConsumerTest {
     BlockingQueue<String> queue;
     BufferedWriter fileWriter;
     OperationStorage storage;
-
 
     @BeforeEach
     void init() {
@@ -34,6 +30,15 @@ class LineConsumerTest {
         String expected = "Hello" + " | " + LineConsumer.INVALID_LINE + LineConsumer.DELIMITER;
         assertEquals(expected,consumer.processLine(toProcess));
     }
+
+        @Test
+    void testProcessFile_textWith2Delimiter_invalidLine() {
+        String toProcess = "Hello#some_operation#addition";
+        String expected = toProcess + " | " + LineConsumer.INVALID_LINE + LineConsumer.DELIMITER;
+        assertEquals(expected,consumer.processLine(toProcess));
+    }
+
+
 
     @Test
     void testProcessFile_textWithIncorrectOperation_invalidLine() {
