@@ -43,10 +43,6 @@ class OperationStorageTest {
 
     @Test
     void testInit_noExistingOperations_throwsExceptionOnInit() throws OperationStorageInstantiationException {
-        assertThrows(ClassNotFoundException.class,() -> storage.init(Collections.singletonList("")));
+        assertThrows(ClassNotFoundException.class, () -> storage.init(Collections.singletonList("")));
     }
-
-
-
-
 }
