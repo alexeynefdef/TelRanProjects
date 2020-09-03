@@ -76,15 +76,7 @@ class StringSeparatorTest {
 
     @Test
     void testDoStuff_mixedString_2eList() {
-        var expected = new ArrayList<>(List.of("o44","44p"));
-        assertEquals(expected,separator.doStuff(3,"He3lo44p56df"));
+        var expected = new ArrayList<>(List.of("o44", "44p"));
+        assertEquals(expected, separator.doStuff(3, "He3lo44p56df"));
     }
-
-
-
-
-
-
-
-
 }

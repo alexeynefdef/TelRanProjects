@@ -23,7 +23,6 @@ public class StringSeparator {
         for (int i = 0; i < string.length(); i++) {
             set.add(spl[i]);
         }
-
         return set.size() == string.length() - 1;
     }
 
