@@ -11,10 +11,6 @@ public class Account {
         this.isLocked = isLocked;
     }
 
-    public String getID() {
-        return ID;
-    }
-
     public long getBalance() {
         return balance;
     }

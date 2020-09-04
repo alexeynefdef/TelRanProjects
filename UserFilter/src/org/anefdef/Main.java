@@ -25,6 +25,5 @@ public class Main {
 
         aF.filter(accounts,onBalance);
         aF.filter(accounts,blocked.negate().and(largeBalance));
-
     }
 }
