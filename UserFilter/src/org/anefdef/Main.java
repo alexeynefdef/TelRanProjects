@@ -19,12 +19,12 @@ public class Main {
 
         Predicate<Account> onBalance = account -> account.getBalance() > 0;
         Predicate<Account> largeBalance = account -> account.getBalance() > 100_000;
-        Predicate<Account> notBlocked = account -> account.isLocked;
+        Predicate<Account> blocked = account -> account.isLocked;
 
         AccFilter aF = new AccFilter();
 
         aF.filter(accounts,onBalance);
-        aF.filter(accounts,notBlocked.negate().and(largeBalance));
+        aF.filter(accounts,blocked.negate().and(largeBalance));
 
     }
 }
