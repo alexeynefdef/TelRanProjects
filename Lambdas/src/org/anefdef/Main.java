@@ -1,7 +1,6 @@
 package org.anefdef;
-
 import java.util.*;
-import java.util.function.Function;
+import java.util.function.*;
 
 
 public class Main {
@@ -32,6 +31,13 @@ public class Main {
         Formula formula = new Formula(2.2,3.14,6.7);
         var res = formula.compute(5.1);
 
+        printRes(num -> num * num,10);
+
+    }
+
+    static void printRes(Function<Integer,Integer> def, int num) {
+        int res = def.apply(num);
+        System.out.println(res);
     }
 }
 
