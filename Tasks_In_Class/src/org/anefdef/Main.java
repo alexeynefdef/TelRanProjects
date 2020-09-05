@@ -15,8 +15,8 @@ public class Main {
         Function<Integer,Integer> f = x -> x * 2;
         Function<Integer,Integer> g = x -> x + 3;
 
-        Function<Integer,Integer> b = f.compose(g);
+        //Function<Integer,Integer> b = f.compose(g);
 
-        System.out.println(b.apply(3));
+        System.out.println(f.compose(g).apply(3));
     }
 }
