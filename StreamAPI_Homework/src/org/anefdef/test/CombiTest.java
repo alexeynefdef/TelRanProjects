@@ -3,9 +3,7 @@ package org.anefdef.test;
 import org.anefdef.task.Combi;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,6 +23,14 @@ class CombiTest {
         Predicate<Integer> expected = p1.and(p2).and(p3);
         boolean toTest = expected.test(6) && combi.combine(input).test(6);
         assertTrue(toTest);
+    }
+
+    @Test
+    void testCombine_0Predicates_true() {
+
+        List<Predicate<Integer>> input = new ArrayList<>();
+
+        assertTrue(combi.combine(input).test(6));
     }
 
 }
