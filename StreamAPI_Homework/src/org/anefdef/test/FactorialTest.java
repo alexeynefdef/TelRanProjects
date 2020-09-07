@@ -16,23 +16,21 @@ class FactorialTest {
 
     @Test
     void testGetF3_6() {
-        assertEquals(2,faq.getF(2));
+        assertEquals(6,faq.getF(3));
     }
 
     @Test
     void testGetF4_24() {
-        assertEquals(2,faq.getF(2));
+        assertEquals(24,faq.getF(4));
     }
 
     @Test
     void testGetF5_120() {
-        assertEquals(2,faq.getF(2));
+        assertEquals(120,faq.getF(5));
     }
 
     @Test
     void testGetF6_720() {
-        assertEquals(2,faq.getF(2));
+        assertEquals(720,faq.getF(6));
     }
-
-
 }
