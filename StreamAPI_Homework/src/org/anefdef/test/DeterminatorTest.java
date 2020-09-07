@@ -10,8 +10,8 @@ class DeterminatorTest {
     Determinator determinator = new Determinator();
 
     @Test
-    void testIsSimple_1_true() {
-        assertTrue(determinator.isPrime(1));
+    void testIsSimple_101_true() {
+        assertTrue(determinator.isPrime(101));
     }
 
     @Test
