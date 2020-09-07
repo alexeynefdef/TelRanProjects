@@ -33,6 +33,14 @@ class OddSumTest {
         assertEquals(3072,limit.getSomOfOddDigits(64,128));
     }
 
+    @Test
+    public void testGetSumOfOddDigits_4and4_0() {
+        assertEquals(0,limit.getSomOfOddDigits(4,4));
+    }
 
+    @Test
+    public void testGetSumOfOddDigits_5and5_5() {
+        assertEquals(5,limit.getSomOfOddDigits(5,5));
+    }
 
 }
