@@ -11,61 +11,61 @@ class DeterminatorTest {
 
     @Test
     void testIsSimple_1_true() {
-        assertTrue(determinator.isSimple(1));
+        assertTrue(determinator.isPrime(1));
     }
 
     @Test
     void testIsSimple_2_true() {
-        assertTrue(determinator.isSimple(2));
+        assertTrue(determinator.isPrime(2));
     }
 
     @Test
     void testIsSimple_3_true() {
-        assertTrue(determinator.isSimple(3));
+        assertTrue(determinator.isPrime(3));
     }
 
     @Test
     void testIsSimple_5_true() {
-        assertTrue(determinator.isSimple(5));
+        assertTrue(determinator.isPrime(5));
     }
 
     @Test
     void testIsSimple_7_true() {
-        assertTrue(determinator.isSimple(7));
+        assertTrue(determinator.isPrime(7));
     }
 
     @Test
     void testIsSimple_41_true() {
-        assertTrue(determinator.isSimple(41));
+        assertTrue(determinator.isPrime(41));
     }
 
     @Test
     void testIsSimple_73_true() {
-        assertTrue(determinator.isSimple(73));
+        assertTrue(determinator.isPrime(73));
     }
 
     @Test
     void testIsSimple_97_true() {
-        assertTrue(determinator.isSimple(97));
+        assertTrue(determinator.isPrime(97));
     }
 
     @Test
     void testIsSimple_59_true() {
-        assertTrue(determinator.isSimple(59));
+        assertTrue(determinator.isPrime(59));
     }
 
     @Test
     void testIsSimple_55_false() {
-        assertTrue(determinator.isSimple(55));
+        assertFalse(determinator.isPrime(55));
     }
 
     @Test
     void testIsSimple_22_false() {
-        assertTrue(determinator.isSimple(22));
+        assertFalse(determinator.isPrime(22));
     }
 
     @Test
     void testIsSimple_100_false() {
-        assertTrue(determinator.isSimple(100));
+        assertFalse(determinator.isPrime(100));
     }
 }
