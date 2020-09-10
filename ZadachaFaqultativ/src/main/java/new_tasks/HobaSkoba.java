@@ -14,12 +14,10 @@ public class HobaSkoba {
         for (char next : input.toCharArray()) {
             if (isOpen(next)) {
                 deque.add(next);
+            } else if (match(deque.getLast(), next)) {
+                deque.removeLast();
             } else {
-                if (match(deque.getLast(),next)) {
-                    deque.removeLast();
-                } else {
-                    return false;
-                }
+                return false;
             }
         }
         return (deque.isEmpty());
