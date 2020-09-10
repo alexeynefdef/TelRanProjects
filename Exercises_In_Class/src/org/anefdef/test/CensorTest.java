@@ -23,14 +23,14 @@ class CensorTest {
     @Test
     void testParentalAdvisory() {
         String toTest = "Bad bad BAD word one two one two TERRIBLE Bad woRSt";
-        List<String> expected = List.of("Bad","Terrible","Worst");
+        List<String> expected = List.of("bad","bad","bad","terrible","bad","worst");
         assertEquals(expected,censor.parentalAdvisory(toTest));
     }
 
     @Test
     void testParentalAdvisory_repeatedWord_ListOFOneE() {
         String toTest = "Bad Bad BAD Bad bad bad bAd Bad Bad";
-        List<String> expected = List.of("Bad");
+        List<String> expected = List.of("bad","bad","bad","bad","bad","bad","bad","bad","bad");
         assertEquals(expected,censor.parentalAdvisory(toTest));
     }
 

@@ -7,7 +7,8 @@ public class Censor {
     private final Set<String> explicit;
 
     public Censor(Set<String> explicit) {
-        this.explicit = explicit;
+        this.explicit = explicit.stream()
+        .map(String::toLowerCase).collect(Collectors.toSet());
     }
 
     /**
@@ -19,9 +20,8 @@ public class Censor {
      */
     public List<String> parentalAdvisory(String text) {
         return Arrays.stream(text.split(" "))
-                .map(word -> word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase())
+                .map(String::toLowerCase)
                 .filter(explicit::contains)
-                .distinct()
                 .collect(Collectors.toList());
     }
 }
