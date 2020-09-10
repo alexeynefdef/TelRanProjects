@@ -12,19 +12,26 @@ public class HobaSkoba {
         if (input.length() % 2 != 0) return false;
 
         for (char next : input.toCharArray()) {
-
-            if(deque.isEmpty() && (next == ')' || next == ']' || next == '}'))
-                return false;
-
-            if (next == '(' || next == '{' || next == '[') {
+            if (isOpen(next)) {
                 deque.add(next);
-
-            } else if ((next == ')' && deque.getLast() == '(') ||
-                    (next == '}' && deque.getLast() == '{') ||
-                    (next == ']' && deque.getLast() == '[')) {
-                deque.removeLast();
+            } else {
+                if (match(deque.getLast(),next)) {
+                    deque.removeLast();
+                } else {
+                    return false;
+                }
             }
         }
-        return (!deque.isEmpty());
+        return (deque.isEmpty());
+    }
+
+    private boolean match(char last, char next) {
+        return (last + next) == ('{' + '}') ||
+                (last + next) == ('(' + ')') ||
+                (last + next) == ('[' + ']');
+    }
+
+    private boolean isOpen(char c) {
+        return c == '{' || c == '[' || c == '(';
     }
 }
