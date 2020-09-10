@@ -41,6 +41,26 @@ class HobaSkobaTest {
 
     @Test
     void testBracketsAreCorrect_false3() {
-        assertFalse(hobaSkoba.bracketsAreCorrect("((([]])))"));
+        assertFalse(hobaSkoba.bracketsAreCorrect("[))("));
+    }
+
+    @Test
+    public void testBracesChecker_correctOrder_true() {
+        assertTrue(hobaSkoba.bracketsAreCorrect("[[]{()}]"));
+    }
+
+    @Test
+    public void testBracesChecker_wrongOrder_false() {
+        assertFalse(hobaSkoba.bracketsAreCorrect("[]{(}]]"));
+    }
+
+    @Test
+    public void testBracesChecker_startsWithClosing_false() {
+        assertFalse(hobaSkoba.bracketsAreCorrect("]()"));
+    }
+
+    @Test
+    public void testBracesChecker_oddNumber_false() {
+        assertFalse(hobaSkoba.bracketsAreCorrect("(()"));
     }
 }
