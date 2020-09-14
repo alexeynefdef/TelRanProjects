@@ -30,6 +30,16 @@ public class LogService {
     }
 
     /**
+     * Method, that counts how many unique Users entered each Url.
+     * @param entries a list of all Log Entries
+     * @return Map<Url, Unique Users Value>
+     */
+    public Map<String, Integer> sumOfUniqueUsersByUrlWithCustomCollector(List<LogEntry> entries) {
+        return entries.stream()
+                .collect(groupingBy(LogEntry::getUrl,new UniqueUsersCollector()));
+    }
+
+    /**
      * Method, that counts how many unique Urls entered each unique User.
      * @param entries a list of all Log Entries
      * @return Map<Unique User, Unique Url Entries Value>

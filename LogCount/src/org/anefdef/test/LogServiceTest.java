@@ -133,4 +133,42 @@ class LogServiceTest {
         var expected = Map.of("Petya",1);
         assertEquals(expected,service.sumOfUniqueUrlEntriesByUsers(logg));
     }
+
+    @Test
+    void testSumOfUniqueUsersByUrlWithCustomCollector0() {
+        List<LogEntry> logg = List.of();
+        var expected = Map.of();
+        assertEquals(expected,service.sumOfUniqueUsersByUrlWithCustomCollector(logg));
+    }
+
+    @Test
+    void testSumOfUniqueUsersByUrlWithCustomCollector1() {
+        var logg = List.of(
+                new LogEntry("Oleg","bash.org"),
+                new LogEntry("Vasya","petrosyan-fanclub.ru")
+                ,new LogEntry("Manya","kotyatki.io")
+                ,new LogEntry("Petya","bash.org"));
+        var expected = Map.of("bash.org",2,"petrosyan-fanclub.ru",1,"kotyatki.io",1);
+        assertEquals(expected,service.sumOfUniqueUsersByUrlWithCustomCollector(logg));
+    }
+
+    @Test
+    void testSumOfUniqueUsersByUrlWithCustomCollector2() {
+        var logg = List.of(
+                new LogEntry("Oleg","bash.org")
+                , new LogEntry("Vasya","bash.org")
+                ,new LogEntry("Petya","bash.org"));
+        var expected = Map.of("bash.org",3);
+        assertEquals(expected,service.sumOfUniqueUsersByUrlWithCustomCollector(logg));
+    }
+
+    @Test
+    void testSumOfUniqueUsersByUrlWithCustomCollector3() {
+        var logg = List.of(
+                new LogEntry("Vasya","petrosyan-fanclub.ru")
+                ,new LogEntry("Manya","kotyatki.io")
+                ,new LogEntry("Petya","bash.org"));
+        var expected = Map.of("bash.org",1,"petrosyan-fanclub.ru",1,"kotyatki.io",1);
+        assertEquals(expected,service.sumOfUniqueUsersByUrlWithCustomCollector(logg));
+    }
 }
