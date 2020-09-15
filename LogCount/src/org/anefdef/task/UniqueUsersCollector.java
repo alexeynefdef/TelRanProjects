@@ -1,5 +1,6 @@
 package org.anefdef.task;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -15,9 +16,11 @@ public class UniqueUsersCollector implements Collector<LogEntry, Set<String>, In
         return HashSet::new;
     }
 
+// TODO : - make collector receiving Function via Class-constructor
+
     @Override
     public BiConsumer<Set<String>, LogEntry> accumulator() {
-        return (set, element) -> set.add(element.getUserName());
+        return (userSet, log) -> userSet.add(log.getUserName());
     }
 
     @Override
@@ -35,6 +38,6 @@ public class UniqueUsersCollector implements Collector<LogEntry, Set<String>, In
 
     @Override
     public Set<Characteristics> characteristics() {
-        return Set.of();
+        return Collections.emptySet();
     }
 }

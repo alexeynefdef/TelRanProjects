@@ -3,7 +3,6 @@ package org.anefdef.test;
 import org.anefdef.task.LogEntry;
 import org.anefdef.task.UniqueUsersCollector;
 import org.junit.jupiter.api.Test;
-
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
