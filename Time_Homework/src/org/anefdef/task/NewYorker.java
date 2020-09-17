@@ -5,7 +5,12 @@ import java.time.format.DateTimeFormatter;
 
 public class NewYorker {
 
-    public String showTimeIntersectionsWith(String workBegin1, String workEnd1, String zoneID1,String workBegin2, String workEnd2, String zoneID2) {
+    public String showTimeIntersectionsWith(String workBegin1,
+                                            String workEnd1,
+                                            String zoneID1,
+                                            String workBegin2,
+                                            String workEnd2,
+                                            String zoneID2) {
 
         LocalTime beginTime1 = LocalTime.parse(workBegin1, DateTimeFormatter.ISO_LOCAL_TIME);
         LocalTime endTime1 = LocalTime.parse(workEnd1,DateTimeFormatter.ISO_LOCAL_TIME);
