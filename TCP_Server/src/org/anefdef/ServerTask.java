@@ -24,9 +24,14 @@ public class ServerTask implements Runnable {
                 String response = String.format("The line %s was accepted from client and handled", line);
                 socketOutput.println(response);
             }
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
