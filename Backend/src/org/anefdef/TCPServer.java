@@ -8,13 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TCPServer {
 
-    private static final int GATEWAY_PORT = 4000;
+    private static final int GATEWAY_PORT = 5000;
     private static final int BALANCER_PORT = 3000;
     private static final AtomicInteger loading = new AtomicInteger(0);
 
     public static void main(String[] args) throws IOException {
 
-        ExecutorService pool = Executors.newFixedThreadPool(5);
+        ExecutorService pool = Executors.newFixedThreadPool(10);
 
         ServerSocket gatewaySocket = new ServerSocket(GATEWAY_PORT);
 
