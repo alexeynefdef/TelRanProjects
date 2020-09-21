@@ -22,14 +22,13 @@ public class TCPServer {
 
         while (true) {
             Socket socket = gatewaySocket.accept();
-
             Runnable serverTask = new TCPServerTask(socket);
             pool.execute(serverTask);
             loading.incrementAndGet();
         }
     }
 
-    private static void sendingLoadingDataToLoadingBalancer(ServerSocket socket) throws IOException {
+    public static void sendingLoadingDataToLoadingBalancer(ServerSocket socket) throws IOException {
         DatagramSocket loadBalancerSocket = new DatagramSocket(BALANCER_PORT);
 
         while(true) {
@@ -38,7 +37,9 @@ public class TCPServer {
             // creating packet to send
             DatagramPacket sendingPacket = new DatagramPacket(
                     sendingDataAsString.getBytes(),
-                    sendingDataAsString.length());
+                    sendingDataAsString.length(),
+                    socket.getInetAddress(),
+                    socket.getLocalPort());
             loadBalancerSocket.send(sendingPacket);
         }
     }
