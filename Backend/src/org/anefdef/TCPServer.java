@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TCPServer {
 
     private static final int GATEWAY_PORT = 4000;
-    private static final int BALANCER_PORT = 4000;
+    private static final int BALANCER_PORT = 3000;
     private static final AtomicInteger loading = new AtomicInteger(0);
 
     public static void main(String[] args) throws IOException {
