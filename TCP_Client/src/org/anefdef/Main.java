@@ -9,7 +9,7 @@ public class Main {
     static final int SERVER_PORT = 3000;
 
     public static void main(String[] args) throws IOException {
-        //InetAddress[] address = InetAddress.getAllByName(SERVER_HOST);
+        // connection socket
         Socket socket = new Socket(SERVER_HOST,SERVER_PORT);
 
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
