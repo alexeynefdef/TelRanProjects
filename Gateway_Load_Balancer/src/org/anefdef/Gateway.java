@@ -22,7 +22,7 @@ public class Gateway {
         balancerProcess.start();
 
         // client part
-        Runnable clientTask = new ClientTask(backendCoordinates);
+        Runnable clientTask = new GatewayTask(backendCoordinates);
         Thread clientProcess = new Thread(clientTask);
         // start listening client
         clientProcess.start();

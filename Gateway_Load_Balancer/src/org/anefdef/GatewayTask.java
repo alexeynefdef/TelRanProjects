@@ -7,13 +7,13 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClientTask implements Runnable {
+public class GatewayTask implements Runnable {
 
     static final int CLIENT_PORT = 5000;
     private final Socket clientSocket;
     private final Socket backendSocket;
 
-    public ClientTask(BackendCoordinates backendCoordinates) throws IOException {
+    public GatewayTask(BackendCoordinates backendCoordinates) throws IOException {
         ServerSocket socketC = new ServerSocket(CLIENT_PORT);
         this.clientSocket = socketC.accept();
         this.backendSocket = new Socket(backendCoordinates.getAddress(),backendCoordinates.getPort());
