@@ -14,8 +14,6 @@ public class Gateway {
 
     public static void main(String[] args) throws IOException {
 
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-
         ServerSocket clientSocket = new ServerSocket(CLIENT_PORT);
 
         while (true) {
@@ -23,7 +21,8 @@ public class Gateway {
             Socket socketIN = clientSocket.accept();
             Socket socketOUT = new Socket(currentAddress,SERVER_PORT);
             Runnable gatewayTask = new GatewayTask(socketIN, socketOUT);
-            pool.execute(gatewayTask);
+            Thread backendSocket = new Thread(gatewayTask);
+            backendSocket.start();
         }
     }
 
