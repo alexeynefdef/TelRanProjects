@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class TCPServerTask implements Runnable {
 
-    Socket socket;
+    private final Socket socket;
 
     public TCPServerTask(Socket socket) {
         this.socket = socket;
@@ -21,7 +21,7 @@ public class TCPServerTask implements Runnable {
             BufferedReader socketInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
             while((line = socketInput.readLine()) != null) {
-                String response = String.format("Received on server: %s", line);
+                String response = String.format("Received on SERVER: %s", line);
                 socketOutput.println(response);
             }
         } catch (IOException e) {

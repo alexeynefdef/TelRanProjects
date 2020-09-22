@@ -1,13 +1,8 @@
 package org.anefdef;
 
 import java.io.IOException;
-import java.net.*;
 
 public class Gateway {
-
-    private static InetAddress currentAddress;
-    private static int currentPort;
-
 
     public static void main(String[] args) throws IOException {
 
@@ -22,6 +17,7 @@ public class Gateway {
         balancerProcess.start();
 
         // client part
+
         Runnable clientTask = new GatewayTask(backendCoordinates);
         Thread clientProcess = new Thread(clientTask);
         // start listening client

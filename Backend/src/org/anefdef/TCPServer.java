@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TCPServer {
 
     private static final int GATEWAY_PORT = 6000;
-    private static final int BALANCER_PORT = 3000;
+    private static final int BALANCER_PORT = 3300;
     private static final AtomicInteger loading = new AtomicInteger(0);
 
     public static void main(String[] args) throws IOException {
@@ -18,20 +18,12 @@ public class TCPServer {
 
         ServerSocket gatewaySocket = new ServerSocket(GATEWAY_PORT);
 
-        sendingLoadingDataToLoadingBalancer(gatewaySocket);
-
         while (true) {
             Socket socket = gatewaySocket.accept();
             Runnable serverTask = new TCPServerTask(socket);
             pool.execute(serverTask);
             loading.incrementAndGet();
-        }
-    }
-
-    public static void sendingLoadingDataToLoadingBalancer(ServerSocket socket) throws IOException {
-        DatagramSocket loadBalancerSocket = new DatagramSocket(BALANCER_PORT);
-
-        while(true) {
+            DatagramSocket loadBalancerSocket = new DatagramSocket(BALANCER_PORT);
             // creating string to combine data in
             String sendingDataAsString = socket.getInetAddress().toString() + ":" + socket.getLocalPort() + loading.toString();
             // creating packet to send
