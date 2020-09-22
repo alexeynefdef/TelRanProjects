@@ -7,7 +7,7 @@ import java.net.DatagramSocket;
 
 public class BalancerTask implements Runnable {
 
-    private static final int BALANCER_PORT = 5001;
+    private static final int BALANCER_PORT = 5002;
     private final BackendCoordinates backendCoordinates;
 
     public BalancerTask(BackendCoordinates backendCoordinates) {

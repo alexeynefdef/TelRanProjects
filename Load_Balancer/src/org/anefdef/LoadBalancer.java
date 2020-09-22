@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class LoadBalancer {
 
-    private static final int BACKEND_PORT = 3300;
-    private static final int GATEWAY_PORT = 5001;
+    private static final int BACKEND_PORT = 5001;
+    private static final int GATEWAY_PORT = 5002;
     private static final String GATEWAY_HOST = "localhost";
     private static final HashMap<String, Integer> loadValuesByIP = new HashMap<>();
 
