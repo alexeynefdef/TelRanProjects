@@ -13,15 +13,16 @@ public class Gateway {
 
         // balancer part
 
+        //current address and port storage
         BackendCoordinates backendCoordinates = new BackendCoordinates();
+
         Runnable balancerTask = new BalancerTask(backendCoordinates);
         Thread balancerProcess = new Thread(balancerTask);
         // start listening balancer
         balancerProcess.start();
 
         // client part
-
-        Runnable clientTask = new ClientTask();
+        Runnable clientTask = new ClientTask(backendCoordinates);
         Thread clientProcess = new Thread(clientTask);
         // start listening client
         clientProcess.start();
