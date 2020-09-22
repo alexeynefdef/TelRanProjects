@@ -2,40 +2,29 @@ package org.anefdef;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Gateway {
 
-    static final int CLIENT_PORT = 5000;
-    static final int SERVER_PORT = 6000;
-    static final int BALANCER_PORT = 5001;
     private static InetAddress currentAddress;
+    private static int currentPort;
+
 
     public static void main(String[] args) throws IOException {
 
-        ServerSocket clientSocket = new ServerSocket(CLIENT_PORT);
+        // balancer part
 
-        while (true) {
-            balancerProcess();
-            Socket socketIN = clientSocket.accept();
-            Socket socketOUT = new Socket(currentAddress,SERVER_PORT);
-            Runnable gatewayTask = new GatewayTask(socketIN, socketOUT);
-            Thread backendSocket = new Thread(gatewayTask);
-            backendSocket.start();
-        }
-    }
+        BackendCoordinates backendCoordinates = new BackendCoordinates();
+        Runnable balancerTask = new BalancerTask(backendCoordinates);
+        Thread balancerProcess = new Thread(balancerTask);
+        // start listening balancer
+        balancerProcess.start();
 
-    private static void balancerProcess() throws IOException {
-        DatagramSocket balancerSocket = new DatagramSocket(BALANCER_PORT);
-        byte[] incomingData = new byte[8192];
-        DatagramPacket incomingPacket = new DatagramPacket(incomingData, incomingData.length);
-        balancerSocket.receive(incomingPacket);
-        String rawData = new String(incomingData, 0, incomingPacket.getLength());
-        setCurrentAddress(InetAddress.getByName(rawData));
-    }
+        // client part
 
-    public static void setCurrentAddress(InetAddress currentAddress) {
-        Gateway.currentAddress = currentAddress;
+        Runnable clientTask = new ClientTask();
+        Thread clientProcess = new Thread(clientTask);
+        // start listening client
+        clientProcess.start();
+
     }
 }
