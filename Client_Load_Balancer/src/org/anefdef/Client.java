@@ -13,12 +13,13 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
 
+        //creating connection with gateway
+        Socket gatewaySocket = new Socket(GATEWAY_HOST,GATEWAY_PORT);
+
         // getting line from keyboard
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         String message = consoleReader.readLine();
 
-        //creating connection with gateway
-        Socket gatewaySocket = new Socket(GATEWAY_HOST,GATEWAY_PORT);
         //creating and sending messages to the gateway
         PrintStream socketOut = new PrintStream(gatewaySocket.getOutputStream());
         //receiving data back from gateway
