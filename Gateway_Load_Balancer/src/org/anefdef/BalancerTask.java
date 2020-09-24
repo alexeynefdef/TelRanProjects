@@ -7,11 +7,13 @@ import java.net.DatagramSocket;
 
 public class BalancerTask implements Runnable {
 
-    private static final int BALANCER_PORT = 5002;
+    private final int balancerPort;
     private final BackendCoordinates backendCoordinates;
+    private static final String DELIMITER = ":";
 
-    public BalancerTask(BackendCoordinates backendCoordinates) {
+    public BalancerTask(BackendCoordinates backendCoordinates, int BALANCER_PORT) {
         this.backendCoordinates = backendCoordinates;
+        this.balancerPort = BALANCER_PORT;
     }
 
     @Override
@@ -19,22 +21,24 @@ public class BalancerTask implements Runnable {
 
         try {
 
-            DatagramSocket balancerSocket = new DatagramSocket(BALANCER_PORT);
+            DatagramSocket balancerSocket = new DatagramSocket(balancerPort);
+
+            byte[] incomingData = new byte[1024];
+
+            DatagramPacket incomingPacket = new DatagramPacket(incomingData, incomingData.length);
 
             while (true) {
 
-                byte[] incomingData =  new byte[8192];
-
-                DatagramPacket incomingPacket = new DatagramPacket(incomingData, incomingData.length);
-
                 balancerSocket.receive(incomingPacket);
 
-                String rawData = new String(incomingData,0,incomingPacket.getLength());
+                String rawData = new String(incomingData, 0, incomingPacket.getLength());
 
-                String[] addressAndPort = rawData.split(":");
+                String[] addressAndPort = rawData.split(DELIMITER);
 
-                backendCoordinates.setAddress(addressAndPort[0]);
-                backendCoordinates.setPort(Integer.parseInt(addressAndPort[1]));
+                synchronized (backendCoordinates) {
+                    backendCoordinates.setHost(addressAndPort[0]);
+                    backendCoordinates.setPort(Integer.parseInt(addressAndPort[1]));
+                }
             }
 
         } catch (IOException e) {

@@ -1,27 +1,34 @@
 package org.anefdef;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class GatewayTask implements Runnable {
 
-    static final int CLIENT_PORT = 5000;
-    private final Socket clientSocket;
-    private final Socket backendSocket;
+    private final int clientPort;
+    private BackendCoordinates storage;
 
-    public GatewayTask(BackendCoordinates backendCoordinates) throws IOException {
-        ServerSocket socketC = new ServerSocket(CLIENT_PORT);
-        this.clientSocket = socketC.accept();
-        this.backendSocket = new Socket(backendCoordinates.getAddress(),backendCoordinates.getPort());
+    public GatewayTask(BackendCoordinates backendCoordinates,int clientPort) throws IOException {
+        this.storage = backendCoordinates;
+        this.clientPort = clientPort;
+
     }
 
     @Override
     public void run() {
         try {
+            ServerSocket serverSocket = new ServerSocket(clientPort);
+
+            while (true) {
+
+                Socket clientSocket = serverSocket.accept();
+
+                TCPProxyTask proxyTask = new TCPProxyTask(storage,clientSocket);
+                Thread TCPProxyProcess = new Thread(proxyTask);
+                TCPProxyProcess.start();
+            }
+            /**
             // receiving data from client
             BufferedReader incomingDatFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             // sending data to backend
@@ -41,15 +48,9 @@ public class GatewayTask implements Runnable {
                 String comingBackDataFromBackend = incomingBackDataFromBackend.readLine();
                 //sending data back to client
                 outgoingDataToClient.println(comingBackDataFromBackend);
-            }
+            }**/
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ public class BackendCoordinates {
     private String address;
     private int port;
 
-    public void setAddress(String address) {
+    public void setHost(String address) {
         this.address = address;
     }
 
@@ -13,7 +13,7 @@ public class BackendCoordinates {
         this.port = port;
     }
 
-    public String getAddress() {
+    public String getHost() {
         return address;
     }
 
