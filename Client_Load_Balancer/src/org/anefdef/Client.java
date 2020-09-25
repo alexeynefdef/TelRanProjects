@@ -28,7 +28,7 @@ public class Client {
         while (message != null && !message.equals("exit")) {
             socketOut.println(message);
             String response = socketIn.readLine();
-            System.out.println(response);
+            System.out.println("Full circle: " + response);
         }
         gatewaySocket.close();
     }

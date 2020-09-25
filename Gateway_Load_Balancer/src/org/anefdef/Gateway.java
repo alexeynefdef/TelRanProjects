@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Gateway {
 
     static final int CLIENT_PORT = 5000;
-    static final int BALANCER_PORT = 5002;
+    static final int BALANCER_PORT = 6002;
 
     public static void main(String[] args) throws IOException {
 
