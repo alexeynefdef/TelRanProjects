@@ -38,10 +38,10 @@ public class Telebot extends TelegramLongPollingBot {
     }
 
     public String getBotUsername() {
-        return "anefdevweather_bot";
+        return "";
     }
 
     public String getBotToken() {
-        return "1251065115:AAFpo26yDK_HxnsUx6yeV1FEffoZxazApRE";
+        return "";
     }
 }
