@@ -23,8 +23,11 @@ public class Telebot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             SendMessage message = new SendMessage()
+                    .enableMarkdown(true)
                     .setChatId(update.getMessage().getChatId())
-                    .setText(update.getMessage().getText());
+                    .setText(update.getMessage().getText())
+                    .setReplyToMessageId(update.getMessage().getMessageId())
+                    .setText("So what?");
             try {
                 execute(message);
             } catch (TelegramApiException e) {
