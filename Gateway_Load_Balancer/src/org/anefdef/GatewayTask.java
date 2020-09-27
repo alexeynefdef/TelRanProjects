@@ -7,10 +7,10 @@ import java.net.Socket;
 public class GatewayTask implements Runnable {
 
     private final int clientPort;
-    private BackendCoordinates storage;
+    private final BackendCoordinatesStorage storage;
 
-    public GatewayTask(BackendCoordinates backendCoordinates,int clientPort) throws IOException {
-        this.storage = backendCoordinates;
+    public GatewayTask(BackendCoordinatesStorage storage, int clientPort) {
+        this.storage = storage;
         this.clientPort = clientPort;
     }
 
@@ -19,7 +19,7 @@ public class GatewayTask implements Runnable {
         try {
             ServerSocket serverSocket = new ServerSocket(clientPort);
             while (true) {
-
+                // the server accepts a connection
                 Socket clientSocket = serverSocket.accept();
 
                 TCPProxyTask proxyTask = new TCPProxyTask(storage,clientSocket);

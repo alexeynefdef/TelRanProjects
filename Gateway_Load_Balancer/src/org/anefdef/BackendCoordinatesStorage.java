@@ -1,6 +1,6 @@
 package org.anefdef;
 
-public class BackendCoordinates {
+public class BackendCoordinatesStorage {
 
     private String address;
     private int port;

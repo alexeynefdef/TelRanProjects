@@ -8,11 +8,11 @@ import java.net.DatagramSocket;
 public class BalancerTask implements Runnable {
 
     private final int balancerPort;
-    private final BackendCoordinates backendCoordinates;
+    private final BackendCoordinatesStorage backendCoordinatesStorage;
     private static final String DELIMITER = ":";
 
-    public BalancerTask(BackendCoordinates backendCoordinates, int BALANCER_PORT) {
-        this.backendCoordinates = backendCoordinates;
+    public BalancerTask(BackendCoordinatesStorage backendCoordinatesStorage, int BALANCER_PORT) {
+        this.backendCoordinatesStorage = backendCoordinatesStorage;
         this.balancerPort = BALANCER_PORT;
     }
 
@@ -35,9 +35,9 @@ public class BalancerTask implements Runnable {
 
                 String[] addressAndPort = rawData.split(DELIMITER);
 
-                synchronized (backendCoordinates) {
-                    backendCoordinates.setHost(addressAndPort[0]);
-                    backendCoordinates.setPort(Integer.parseInt(addressAndPort[1]));
+                synchronized (backendCoordinatesStorage) {
+                    backendCoordinatesStorage.setHost(addressAndPort[0]);
+                    backendCoordinatesStorage.setPort(Integer.parseInt(addressAndPort[1]));
                 }
             }
 

@@ -9,9 +9,9 @@ import java.net.Socket;
 public class TCPProxyTask implements Runnable {
 
     private final Socket clientSocket;
-    private final BackendCoordinates storage;
+    private final BackendCoordinatesStorage storage;
 
-    public TCPProxyTask(BackendCoordinates storage, Socket clientSocket) {
+    public TCPProxyTask(BackendCoordinatesStorage storage, Socket clientSocket) {
         this.clientSocket = clientSocket;
         this.storage = storage;
     }
