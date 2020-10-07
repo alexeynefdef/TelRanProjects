@@ -1,0 +1,7 @@
+com
+org
+ua
+ru
+de
+net
+io
