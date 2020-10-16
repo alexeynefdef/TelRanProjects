@@ -3,8 +3,6 @@ package org.anefdef;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
@@ -69,6 +67,13 @@ class TaskTest {
         int[] A = {5,7,5,4};
         int[] B = {3,2,1,4};
         assertEquals(0, task.doThings(A,B));
+    }
+
+    @Test
+    void testDoThings_4Match_4() {
+        int[] A = {0,0,0,0,0};
+        int[] B = {0,0,0,0,0};
+        assertEquals(4, task.doThings(A,B));
     }
 
 
