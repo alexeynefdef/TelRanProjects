@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta charset="UTF-8">
+    <title>Contact card</title>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper cyan darken-3">
+        <a href="/" class="brand-logo">
+            <i class="material-icons">book</i>
+            .myContacts
+        </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+
+</div>
+
+<div class="row">
+    <div class="col s6 offset-s3">
+        <div class="card cyan darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Contact card</span>
+                <div class="row"></div>
+                    <div>
+                        <p th:text="'NAME:  ' + ${contact.name}"></p>
+                    </div>
+                    <div>
+                        <p th:text="'PHONE:  ' + ${contact.number}"></p>
+                    </div>
+            </div>
+            <div class="card-action">
+                <a href="/contact/add">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

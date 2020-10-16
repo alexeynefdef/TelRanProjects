@@ -10,7 +10,10 @@
 <body>
 <nav>
     <div class="nav-wrapper cyan darken-3">
-        <a href="" class="brand-logo">.myContact</a>
+        <a href="/" class="brand-logo">
+            <i class="material-icons">book</i>
+            .myContact
+        </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/">home</a></li>
         </ul>
@@ -18,12 +21,12 @@
 </nav>
 <div class="row">
     <h3 class="col s9 offset-s3">
-        Create contact
+        Create or edit contact
     </h3>
 </div>
 
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/contact/add}" th:object="${contact}" method="post">
+    <form class="col s6 offset-s3" th:action="@{/contact/save}" th:object="${contact}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div class="row">
             <div class="input-field col s6">
@@ -41,7 +44,12 @@
             <button class="btn waves-effect waves-light " type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
             </button>
+
+            <a href="/contacts" class="btn waves-effect waves-light" type="cancel" name="action">Cancel
+                <i class="material-icons right">cancel</i>
+            </a>
         </div>
+
     </form>
 </div>
 

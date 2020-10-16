@@ -1,21 +1,19 @@
-
-<!--TODO add functionality to template from materialize
-1.Find something suitable on materialize
-2.Find how to display several elements on page using thymeleaf
--->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <meta charset="UTF-8">
     <title>Contacts</title>
 </head>
 <body>
 <nav>
     <div class="nav-wrapper cyan darken-3">
-        <a href="" class="brand-logo">.myContact</a>
+        <a href="/" class="brand-logo">
+            <i class="material-icons">book</i>
+            .myContacts
+        </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/">home</a></li>
         </ul>
@@ -23,25 +21,44 @@
 </nav>
 
 <div class="row">
-    <div class="col s8 offset-s8">
-        <span class="flow-text">Add contact</span>
-        <a class="btn-floating btn-large waves-effect waves-cyan darken-3" href="/contact/add">
-            <i class="material-icons">add</i>
-        </a>
-    </div>
-</div>
 
+</div>
 
 <div class="row">
     <div class="col s6 offset-s1"><span class="flow-text">Contacts</span>
+        <div class="row">
+            <div class="col s8 offset-s8">
+                <span class="flow-text">Add contact</span>
+                <a class="btn-floating btn-large waves-effect waves-cyan darken-3" href="/contact/add">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
         <table>
             <tr>
                 <th>NAME</th>
                 <th>NUMBER</th>
             </tr>
-            <tr th:each="contact : ${contacts}" th:class="${contact.getName()}">
-                <td th:text="${contact.name}"></td>
-                <td th:text="${contact.number}"></td>
+            <tr th:each="contact : ${contacts}" th:class="${contact.name}">
+                <span>
+                    <td>
+                        <a th:href="'/contact/' + ${contact.id}">
+                            <p th:text="${contact.name}"></p>
+                        </a>
+                    </td>
+                    <td th:text="${contact.number}"></td>
+                    <td>
+                        <a th:href="'/contact/' + ${contact.id} + '/edit'">
+                            <i class="small material-icons">edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="'/contact/' + ${contact.id} + '/delete'">
+                            <i class="small material-icons">delete</i>
+                        </a>
+                    </td>
+
+                </span>
             </tr>
         </table>
     </div>
