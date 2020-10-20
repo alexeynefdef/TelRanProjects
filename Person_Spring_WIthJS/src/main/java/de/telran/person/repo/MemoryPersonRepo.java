@@ -1,6 +1,7 @@
 package de.telran.person.repo;
 
 import de.telran.person.model.Person;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +16,14 @@ public class MemoryPersonRepo implements IPersonRepo{
     AtomicInteger currentID = new AtomicInteger();
 
     @Override
-    public void save(Person person) {
+    public void save(@NonNull Person person) {
         int id = person.getId();
         if (id == 0) {
             id = currentID.incrementAndGet();
             person.setId(id);
-        } else {
-            persons.put(id,person);
         }
+        persons.put(id,person);
+
     }
 
     @Override
