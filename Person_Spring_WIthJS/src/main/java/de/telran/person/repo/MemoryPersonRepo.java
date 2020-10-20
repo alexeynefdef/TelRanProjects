@@ -2,8 +2,6 @@ package de.telran.person.repo;
 
 import de.telran.person.model.Person;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +16,13 @@ public class MemoryPersonRepo implements IPersonRepo{
 
     @Override
     public void save(Person person) {
-        if (person.getId() == 0) {
-            int id = currentID.incrementAndGet();
+        int id = person.getId();
+        if (id == 0) {
+            id = currentID.incrementAndGet();
             person.setId(id);
+        } else {
+            persons.put(id,person);
         }
-        persons.put(person.getId(),person);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MemoryPersonRepo implements IPersonRepo{
 
     @Override
     public Person remove(int id) {
-        return remove(id);
+        return persons.remove(id);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package de.telran.person.controller;
 
 import de.telran.person.dto.PersonDto;
+import de.telran.person.exception.PersonNotFoundException;
 import de.telran.person.model.Person;
 import de.telran.person.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -17,21 +19,18 @@ public class PersonController {
         this.personService = personService;
     }
 
-
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
         Person personFromRepo = personService.getPerson(id);
-        PersonDto personDto = new PersonDto();
-        personDto.firstName = personFromRepo.getFirstName();
-        personDto.lastName = personFromRepo.getLastName();
-        personDto.age = personFromRepo.getAge();
-        personDto.id = personFromRepo.getId();
-        return personDto;
+        if (personFromRepo == null) {
+            throw new PersonNotFoundException("Person not found");
+        }
+        return new PersonDto(personFromRepo);
     }
 
-    @GetMapping("/persons")
+    @GetMapping("/persons/")
     public List<PersonDto> getAll() {
-        return personService.getAll();
+        return personService.getAll().stream().map(PersonDto::new).collect(Collectors.toList());
     }
 
     @PostMapping("/persons")
@@ -41,24 +40,15 @@ public class PersonController {
         return personDto;
     }
 
-    @PutMapping("/persons{id}")
+    @PutMapping("/persons/{id}")
     public void edit(@RequestBody PersonDto personDto, @PathVariable int id) {
-        Person personToUpdate = new Person(personDto.firstName);
-        personToUpdate.setLastName(personDto.lastName);
-        personToUpdate.setAge(personDto.age);
-        personToUpdate.setId(id);
-        personService.updatePerson(personToUpdate);
+        personService.edit(id,personDto.firstName, personDto.lastName, personDto.age);
     }
 
-    @DeleteMapping("/persons{id}")
+    @DeleteMapping("/persons/{id}")
     public PersonDto delete(@PathVariable int id) {
         Person removedPersonFromRepo = personService.removePerson(id);
-        PersonDto personDto = new PersonDto();
-        personDto.firstName = removedPersonFromRepo.getFirstName();
-        personDto.lastName = removedPersonFromRepo.getLastName();
-        personDto.age = removedPersonFromRepo.getAge();
-        personDto.id = removedPersonFromRepo.getId();
-        return personDto;
+        return new PersonDto(removedPersonFromRepo);
     }
 
 
