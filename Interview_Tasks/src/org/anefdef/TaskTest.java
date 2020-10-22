@@ -2,7 +2,6 @@ package org.anefdef;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
@@ -13,6 +12,63 @@ class TaskTest {
     void init() {
         task = new Task();
     }
+
+    // 21 OCT
+
+    @Test
+    void testFindSquares_3_9_2() {
+        assertEquals(2,task.findSquares(3,9));
+    }
+
+    @Test
+    void testFindSquares_3_18_3() {
+        assertEquals(3,task.findSquares(3,18));
+    }
+
+    @Test
+    void testFindSquares_5_25_3() {
+        assertEquals(3,task.findSquares(5,25));
+    }
+
+    @Test
+    void testFindSquares_1_100_10() {
+        assertEquals(10,task.findSquares(1,100));
+    }
+
+    @Test
+    void testFindDigits_1_1_0() {
+        assertEquals(0,task.findDigits(1,1));
+    }
+
+    @Test
+    void testFindDigits_3_9_1() {
+        assertEquals(1,task.findDigits(3,9));
+    }
+
+    @Test
+    void testFindDigits_3_18_2() {
+        assertEquals(2,task.findDigits(3,18));
+    }
+
+    @Test
+    void testFindDigits_5_25_3() {
+        assertEquals(3,task.findDigits(5,25));
+    }
+
+    @Test
+    void testFindDigits_1_100_9() {
+        assertEquals(9,task.findDigits(1,100));
+    }
+
+
+
+
+
+
+
+
+
+    // 14 OCT
 
     @Test
     void testDoStuff_153_162() {
