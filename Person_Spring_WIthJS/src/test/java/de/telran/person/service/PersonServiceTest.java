@@ -47,19 +47,15 @@ class PersonServiceTest {
     @Test
     void testGetPerson() {
         Person person = new Person("Name","Surname",45);
-        person.setId(1);
         when(repo.find(1)).thenReturn(person);
-        assertEquals(person,service.getPerson(1));
+        assertEquals(person,service.get(1));
     }
 
     @Test
     void testGetAll() {
         Person person1 = new Person("Name","Surname",45);
-        person1.setId(1);
         Person person2 = new Person("Name","Surname",45);
-        person2.setId(2);
         Person person3 = new Person("Name","Surname",45);
-        person3.setId(3);
         when(repo.findAll()).thenReturn(List.of(person1,person2,person3));
         assertEquals(List.of(person1,person2,person3),service.getAll());
     }
@@ -67,20 +63,14 @@ class PersonServiceTest {
     @Test
     void testRemovePerson_1el() {
         Person person1 = new Person("Name","Surname",45);
-        person1.setId(1);
         when(repo.remove(1)).thenReturn(person1);
-        assertEquals(person1,service.removePerson(1));
+        assertEquals(person1,service.remove(1));
     }
 
     @Test
     void testRemovePerson_3el() {
-        Person person1 = new Person("Name","Surname",45);
-        person1.setId(1);
         Person person2 = new Person("Name","Surname",45);
-        person2.setId(2);
-        Person person3 = new Person("Name","Surname",45);
-        person3.setId(3);
         when(repo.remove(2)).thenReturn(person2);
-        assertEquals(person2,service.removePerson(2));
+        assertEquals(person2,service.remove(2));
     }
 }

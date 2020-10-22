@@ -62,9 +62,9 @@ class MemoryPersonRepoTest {
     @Test
     void find_100el_elFromTheMiddle() {
         for (int i = 0; i < 100; i++) {
-            repo.save(new Person("Vasya","Pupkin"+i,20+i));
+            repo.save(new Person("Vasya","Pupkin",20));
         }
-        Person expected = new Person("Vasya", "Pupkin49",69);
+        Person expected = new Person("Vasya", "Pupkin",20);
         expected.setId(50);
         assertEquals(expected,repo.find(50));
     }
@@ -92,7 +92,7 @@ class MemoryPersonRepoTest {
     @Test
     void remove_100el_remove99_size1() {
         for (int i = 0; i < 100; i++) {
-            repo.save(new Person("Vasya","Pupkin"+i,20+i));
+            repo.save(new Person("Vasya","Pupkin",20));
         }
         for (int i = 1; i < 100; i++) {
             assertEquals(repo.find(i),repo.remove(i));
@@ -103,7 +103,7 @@ class MemoryPersonRepoTest {
     @Test
     void findAll_100el_ListSize100() {
         for (int i = 0; i < 100; i++) {
-            repo.save(new Person("Vasya","Pupkin"+i,20+i));
+            repo.save(new Person("Vasya","Pupkin",20));
         }
         for (int i = 1; i < repo.findAll().size(); i++) {
             assertTrue(repo.findAll().contains(repo.find(i)));

@@ -21,7 +21,7 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
-        Person personFromRepo = personService.getPerson(id);
+        Person personFromRepo = personService.get(id);
         if (personFromRepo == null) {
             throw new PersonNotFoundException("Person not found");
         }
@@ -47,7 +47,7 @@ public class PersonController {
 
     @DeleteMapping("/persons/{id}")
     public PersonDto delete(@PathVariable int id) {
-        Person removedPersonFromRepo = personService.removePerson(id);
+        Person removedPersonFromRepo = personService.remove(id);
         return new PersonDto(removedPersonFromRepo);
     }
 

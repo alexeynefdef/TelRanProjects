@@ -26,14 +26,14 @@ public class PersonService {
     }
 
     public void edit(int id, String firstname, String lastname, int age) {
-        Person personToUpdate = getPerson(id);
+        Person personToUpdate = get(id);
         personToUpdate.setFirstName(firstname);
         personToUpdate.setLastName(lastname);
         personToUpdate.setAge(age);
         repo.save(personToUpdate);
     }
 
-    public Person removePerson(int id) {
+    public Person remove(int id) {
         Person personToRemove = repo.remove(id);
         if (personToRemove == null) {
             throw new PersonNotFoundException(PERSON_NOT_FOUND);
@@ -42,7 +42,7 @@ public class PersonService {
         }
     }
 
-    public Person getPerson(int id) {
+    public Person get(int id) {
         Person person = repo.find(id);
         if (person == null) {
             throw new PersonNotFoundException(PERSON_NOT_FOUND);
