@@ -47,7 +47,7 @@ public class PersonController {
 
     @PutMapping("/persons/{id}")
     public void edit(@RequestBody PersonDto personDto, @PathVariable int id) {
-        personService.edit(id,personDto.firstName, personDto.lastName, personDto.age);
+        personService.edit(id, personDto.firstName, personDto.lastName, personDto.age);
     }
 
     @DeleteMapping("/persons/{id}")
@@ -74,8 +74,16 @@ public class PersonController {
     @GetMapping("/persons/age")
     public List<PersonDto> getAllByAgeFrom(@RequestParam(defaultValue = "0") int after,
                                            @RequestParam(defaultValue = "150") int before) {
-        return personService.getAllByAgeBetween(after,before)
+
+        return personService.getAllByAgeBetween(after, before)
                 .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/persons/lastname/{lastname}")
+    public List<PersonDto> getAllByLastNameLike(@PathVariable String lastname) {
+        return personService.getAllByLastnameLike(lastname).stream()
                 .map(PersonDto::new)
                 .collect(Collectors.toList());
     }
