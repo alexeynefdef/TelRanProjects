@@ -55,10 +55,28 @@ public class PersonController {
         return new PersonDto(personService.remove(id));
     }
 
+    @GetMapping("/persons/name/{name}")
+    public List<PersonDto> getAllByName(@PathVariable String name) {
+        return personService.getAllByName(name)
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
+    }
 
+    @GetMapping("/persons/agebefore/{age}")
+    public List<PersonDto> getAllByAgeBefore(@PathVariable int age) {
+        return personService.getAllByAgeBefore(age)
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
+    }
 
-
-
-
-
+    @GetMapping("/persons/age")
+    public List<PersonDto> getAllByAgeFrom(@RequestParam(defaultValue = "0") int after,
+                                           @RequestParam(defaultValue = "150") int before) {
+        return personService.getAllByAgeBetween(after,before)
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
+    }
 }

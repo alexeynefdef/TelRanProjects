@@ -48,5 +48,17 @@ public class PersonService {
     public List<Person> getAll() {
         return new ArrayList<>(repo.findAll());
     }
+
+    public List<Person> getAllByName(String name) {
+        return new ArrayList<>(repo.findAllByFirstName(name));
+    }
+
+    public List<Person> getAllByAgeBefore(int age) {
+        return new ArrayList<>(repo.findAllByAgeBefore(age));
+    }
+
+    public List<Person> getAllByAgeBetween(int from, int to) {
+        return new ArrayList<>(repo.findAllByAgeGreaterThanEqualAndAgeIsLessThanEqual(from, to));
+    }
 }
 
