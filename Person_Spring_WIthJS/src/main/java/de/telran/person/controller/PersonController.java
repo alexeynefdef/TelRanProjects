@@ -1,11 +1,11 @@
 package de.telran.person.controller;
 
 import de.telran.person.dto.PersonDto;
-import de.telran.person.exception.PersonNotFoundException;
 import de.telran.person.model.Person;
 import de.telran.person.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,16 +21,21 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
-        Person personFromRepo = personService.get(id);
-        if (personFromRepo == null) {
-            throw new PersonNotFoundException("Person not found");
+        PersonDto personDto = null;
+        try {
+            personDto = new PersonDto(personService.get(id));
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
         }
-        return new PersonDto(personFromRepo);
+        return personDto;
     }
 
-    @GetMapping("/persons/")
+    @GetMapping("/persons")
     public List<PersonDto> getAll() {
-        return personService.getAll().stream().map(PersonDto::new).collect(Collectors.toList());
+        return personService.getAll()
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/persons")
@@ -47,8 +52,7 @@ public class PersonController {
 
     @DeleteMapping("/persons/{id}")
     public PersonDto delete(@PathVariable int id) {
-        Person removedPersonFromRepo = personService.remove(id);
-        return new PersonDto(removedPersonFromRepo);
+        return new PersonDto(personService.remove(id));
     }
 
 

@@ -9,7 +9,9 @@ public class PersonDto {
     public String lastName;
     public int age;
 
-    public PersonDto() {}
+    public PersonDto() {
+
+    }
 
     public PersonDto(Person person) {
         this.id = person.getId();

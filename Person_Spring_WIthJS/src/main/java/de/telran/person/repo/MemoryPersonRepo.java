@@ -1,15 +1,17 @@
-package de.telran.person.repo;
 
+package de.telran.person.repo;
+/*
 import de.telran.person.model.Person;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Repository;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-@Repository
+
 public class MemoryPersonRepo implements IPersonRepo{
 
     Map<Integer,Person> persons = new HashMap<>();
@@ -20,14 +22,21 @@ public class MemoryPersonRepo implements IPersonRepo{
         int id = person.getId();
         if (id == 0) {
             id = currentID.incrementAndGet();
-            person.setId(id);
+
+            try {
+               Field fieldId = Person.class.getDeclaredField("id");
+               fieldId.setAccessible(true);
+               fieldId.setInt(person,id);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         persons.put(id,person);
 
     }
 
     @Override
-    public Person find(int id) {
+    public Optional<Person> findById(int id) {
         return persons.get(id);
     }
 
@@ -41,3 +50,4 @@ public class MemoryPersonRepo implements IPersonRepo{
         return persons.values().stream().collect(Collectors.toList());
     }
 }
+*/

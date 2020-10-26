@@ -1,17 +1,11 @@
 package de.telran.person.repo;
 
 import de.telran.person.model.Person;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.util.Collection;
 
-public interface IPersonRepo {
+public interface IPersonRepo extends CrudRepository<Person, Integer> {
 
-    void save(Person person);
-
-    Person find(int id);
-
-    Person remove(int id);
-
-    List<Person> findAll();
-
+    Collection<Person> findAll();
 }

@@ -1,15 +1,25 @@
 package de.telran.person.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String firstName;
     private String lastName;
     private int age;
 
+    public Person() {
+    }
+
     public Person(String firstName) {
         this.firstName = firstName;
-        this.id = 0;
     }
 
     public Person(String firstName, String lastName, int age) {
@@ -20,10 +30,6 @@ public class Person {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -50,25 +56,4 @@ public class Person {
         this.age = age;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-
-        Person person = (Person) o;
-
-        if (id != person.id) return false;
-        if (age != person.age) return false;
-        if (!firstName.equals(person.firstName)) return false;
-        return lastName.equals(person.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + age;
-        return result;
-    }
 }

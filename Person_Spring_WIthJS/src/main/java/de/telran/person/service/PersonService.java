@@ -1,10 +1,11 @@
 package de.telran.person.service;
 
-import de.telran.person.exception.PersonNotFoundException;
 import de.telran.person.model.Person;
 import de.telran.person.repo.IPersonRepo;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,25 +35,18 @@ public class PersonService {
     }
 
     public Person remove(int id) {
-        Person personToRemove = repo.remove(id);
-        if (personToRemove == null) {
-            throw new PersonNotFoundException(PERSON_NOT_FOUND);
-        } else {
-            return personToRemove;
-        }
+        Person personToRemove = get(id);
+        repo.delete(personToRemove);
+        return personToRemove;
     }
 
     public Person get(int id) {
-        Person person = repo.find(id);
-        if (person == null) {
-            throw new PersonNotFoundException(PERSON_NOT_FOUND);
-        } else {
-            return person;
-        }
+        return repo.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(PERSON_NOT_FOUND));
     }
 
     public List<Person> getAll() {
-        return repo.findAll();
+        return new ArrayList<>(repo.findAll());
     }
 }
 
