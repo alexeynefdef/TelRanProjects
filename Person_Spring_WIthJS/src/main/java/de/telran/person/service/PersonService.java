@@ -60,5 +60,10 @@ public class PersonService {
     public List<Person> getAllByAgeBetween(int from, int to) {
         return new ArrayList<>(repo.findAllByAgeGreaterThanEqualAndAgeIsLessThanEqual(from, to));
     }
+
+    public List<Person> getAllByLastnameLike(String lastname) {
+        return new ArrayList<>(repo.findAllByLastNameLike(lastname));
+    }
+
 }
 
