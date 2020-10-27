@@ -4,8 +4,6 @@ import de.telran.person.dto.PersonDto;
 import de.telran.person.model.Person;
 import de.telran.person.service.PersonService;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,13 +19,7 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
-        PersonDto personDto = null;
-        try {
-            personDto = new PersonDto(personService.get(id));
-        } catch (EntityNotFoundException e) {
-            e.printStackTrace();
-        }
-        return personDto;
+        return new PersonDto(personService.get(id));
     }
 
     @GetMapping("/persons")
@@ -81,9 +73,9 @@ public class PersonController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/persons/lastname/{lastname}")
-    public List<PersonDto> getAllByLastNameLike(@PathVariable String lastname) {
-        return personService.getAllByLastnameLike(lastname).stream()
+    @GetMapping("/persons/lastname")
+    public List<PersonDto> getAllByLastNameLike(@RequestParam String pattern) {
+        return personService.getAllByLastnameLike(pattern).stream()
                 .map(PersonDto::new)
                 .collect(Collectors.toList());
     }

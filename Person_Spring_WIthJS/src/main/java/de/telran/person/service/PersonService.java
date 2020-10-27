@@ -62,8 +62,7 @@ public class PersonService {
     }
 
     public List<Person> getAllByLastnameLike(String lastname) {
-        return new ArrayList<>(repo.findAllByLastNameLike(lastname));
+        return new ArrayList<>(repo.findAllByLastNameIgnoreCaseContaining(lastname));
     }
-
 }
 
