@@ -4,6 +4,7 @@ import de.telran.person.model.Person;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import java.util.Collection;
 import java.util.Iterator;
@@ -11,7 +12,7 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DataJdbcTest
+@DataJpaTest
 public class IPersonRepoIntegrationTest {
 
     @Autowired
